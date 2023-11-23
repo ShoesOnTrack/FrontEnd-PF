@@ -2,9 +2,6 @@ import { useEffect } from "react";
 import Card from "../card/card";
 
 const Cards = ({shoes}) => {
-    useEffect(()=>{
-        console.log(shoes)
-    },[])
     return (
         <div>
             {shoes?.map(shoe=>{
