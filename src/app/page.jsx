@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import Cards from "@/components/cardsContainer/cards.jsx";
-import SearchBar from "@/components/searchBar/searchBar";
+import Header from "@/components/header/header";
 import { useEffect } from "react";
 import { dataAsArray } from "@/helpers/data";
 
@@ -9,7 +9,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <SearchBar/>
+      <Header/>
       <Cards shoes={dataAsArray}/>
        </div>
   );

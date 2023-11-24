@@ -16,24 +16,24 @@
 }
 
 .input[type="search"]:hover {
-  border-color: #71A611; /* Cambia el color del borde al pasar el mouse por encima */
+  border-color: #d6b007; /* Cambia el color del borde al pasar el mouse por encima */
 }
 
 .button {
   flex: 0.2;
   padding: 0.5rem 1rem;
-  background-color: #71A611;
+  background-color: rgb(223, 165, 6);
   color: white;
   border: none;
   cursor: pointer;
   height: 2rem;
   border-radius: 5px;
-  width: 2rem;
+  width: 20rem;
   transition: background-color 0.3s; /* Agrega una transición al color de fondo */
 }
 
 .button:hover {
-  background-color: #5c9011; /* Cambia el color de fondo al pasar el mouse por encima */
+  background-color: rgb(219, 73, 6); /* Cambia el color de fondo al pasar el mouse por encima */
 }
 
 .Lupa {

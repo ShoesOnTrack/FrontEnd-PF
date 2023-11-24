@@ -8,7 +8,7 @@ const SearchBar = () => {
     const [name, setName] = useState("");
 
     const handleChange = (event) => {
-      setName(event.target.value);
+      setName(event?.target?.value);
       handleSearch();
     };
   
@@ -17,18 +17,18 @@ const SearchBar = () => {
     }, 300);
 
     return (
-        <div className={styles.searchbar}>
+        <div className={styles?.searchbar}>
             <input
                 type="search"
                 onChange={handleChange}
                 value={name}
                 placeholder="Search for a product..."
-                className={styles.input}
+                className={styles?.input}
             />
-            <button onClick={() => setName("")} className={styles.button}>
+            <button onClick={() => setName("")} className={styles?.button}>
                 <Image
                     src={lupa}
-                    className={styles.Lupa}
+                    className={styles?.Lupa}
                     width={25}
                     height={25}
                     alt="Search"
