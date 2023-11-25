@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import Card from "../card/card";
+import style from "../cardsContainer/cards.module.css"
 
 const Cards = ({shoes}) => {
     return (
-        <div>
+        <div className={style.container}>
             {shoes?.map(shoe=>{
                 return <Card
                 key={shoe.id}
