@@ -1,0 +1,11 @@
+.container{
+    background-color: #d6b0070d;
+    width: 100%;
+    margin: 0%;
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+    grid-gap: 10px ;
+    align-items: center;
+    margin-left: 15px;
+    
+}
