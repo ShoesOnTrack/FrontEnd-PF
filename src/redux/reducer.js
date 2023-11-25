@@ -11,7 +11,9 @@ import {
 } from "./action-type";
 
 const initialState = {
-  products: [],
+  AllProducts: [],
+  productShow: [],
+  productDetail: [],
   categories: [],
   filters: [],
   reviews: [],
@@ -25,7 +27,8 @@ const rootReducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        AllProducts: action.payload,
+        productsShow: action.payload,
       };
     case GET_ALL_CATEGORIES:
       return {
@@ -87,7 +90,7 @@ const rootReducer = (state = initialState, action) => {
         favorites: action.payload,
       };
     default:
-      return state;
+      return {...state};
   }
 };
 
