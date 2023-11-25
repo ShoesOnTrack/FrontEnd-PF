@@ -1,0 +1,76 @@
+.home {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(196, 196, 196);
+  }
+
+  
+.button {
+    margin-top: 1vh;
+    background-color: #71a611;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem; /* Agrega relleno para hacer el botón más grande y legible */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1rem;
+    transition:
+      background-color 0.3s,
+      transform 0.2s; /* Agrega una transición suave */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 3rem; /* Cambia a un valor específico en píxeles en lugar de vh */
+    height: 2.5rem; /* Cambia la altura a un valor específico en píxeles */
+  }
+  
+  .button:hover {
+    background-color: #47700ed8; /* Cambia el color de fondo al pasar el mouse por encima */
+    transform: translateY(-1px); /* Eleva ligeramente el botón */
+  }
+
+.reset {
+    min-width: 28px;
+    min-height: 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .reset:hover {
+    transform: rotate(720deg); /* Rota 360 grados al pasar el mouse por encima */
+  }
+
+  .active-filter {
+    display: inline; /* Muestra los elementos en línea */
+    margin-right: 10px; /* Agrega un margen derecho para separar los elementos */
+    background-color: #f0f0f0; /* Color de fondo */
+    border: 1px solid #ccc; /* Borde sólido con color */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno para el contenido */
+    cursor: pointer; /* Cambia el cursor al estilo de puntero al pasar el mouse */
+    /* Otros estilos que desees aplicar */
+  }
+    /* Estilos para el hover */
+    .active-filter:hover {
+      border: 2px solid rgba(161, 2, 2, 0.591); /* Cambia el borde a rojo en el hover */
+    }
+  .numberIndexPage {
+    background-color: #f0f0f0;
+    
+  }
+  .numberIndexPage:hover {
+    background-color: #f0f0f0;
+  }
+  .paginationNumber {
+    color: #000000;
+    font-size: 2.5vh;
+    margin: 0.5vh;
+  }
+  .paginationNumber:hover {
+    background-color: #f0f0f0;
+  }
+  .paginationActual {
+    color: #71a611;
+    margin: 0.5vh;
+  }
