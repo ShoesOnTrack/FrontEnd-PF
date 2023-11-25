@@ -4,17 +4,30 @@ import Cards from "@/components/cardsContainer/cards.jsx";
 import Header from "@/components/header/header";
 import Filters from "@/components/filters/Filters";
 import { useEffect, useState } from "react";
-import { dataAsArray } from "@/helpers/data";
 import Image from "next/image";
 import button from "@/helpers/assets/clockwise.svg"
 import styles from "./Home.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts, reset } from "@/redux/actions";
 
 const HomePage = () => {
   // const Page = useSelector((state) => state.indexProductShow);
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useState({})
-  const Products = useSelector((state)=>state.productShow)
+  const Products = useSelector((state)=> state.productShow)
+
+  const dispatch = useDispatch();
+
+
+  const loadProducts = async () => {
+    if (!Products.length) {
+      await dispatch(getAllProducts());
+    }
+  };
+
+  useEffect(()=>{
+    loadProducts()
+  },[])
 
   const handleChange= (event)=>{
     const { name, value } = event.target;
@@ -30,7 +43,8 @@ const HomePage = () => {
 
   useEffect(()=>{
     console.log(initialFilters);
-  },[handleChange])
+    console.log(Products)
+  },[handleChange, loadProducts])
 
   const marcasOpt = ["nike", "converse", "adidas", "topper"];
   const categoriaOpt = ["running", "deportivas", "casuals", "lujo"]
@@ -73,6 +87,7 @@ const HomePage = () => {
             setInitialPageSet(1); // Reiniciar a la página 1 cuando se hace clic en el botón de reset
             // dispatch(getFiltersAndPagination({}, 1));
             setInitialFilters({});
+            dispatch(reset());
           }}
           className={styles?.button}
           >
@@ -104,7 +119,7 @@ const HomePage = () => {
             {initialFilters.price}
           </div>
         )}
-      <Cards shoes={dataAsArray}/>
+      <Cards shoes={Products}/>
        </div>
   );
 };

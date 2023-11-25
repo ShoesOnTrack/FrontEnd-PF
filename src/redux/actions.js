@@ -2,6 +2,9 @@ import axios from "axios";
 
 import {
   GET_ALL_PRODUCTS,
+  GET_BY_ID,
+  GET_PRODUCTS_BY_NAME,
+  CLEAR_DETAIL,
   GET_ALL_CATEGORIES,
   SEARCH_PRODUCTS,
   GET_CART,
@@ -10,15 +13,15 @@ import {
   REMOVE_FROM_CART,
   SORT_PRICE,
   GET_FAVORITES,
+  RESET
 } from "./action-type";
 
+const URL = 'http://localhost:3001';
 
-
-export const getAllProducts = (page) => {
+export const getAllProducts = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/productos?page=${page}`);
-
+      const { data } = await axios.get(`${URL}/products`);
       dispatch({
         type: GET_ALL_PRODUCTS,
         payload: data,
@@ -28,6 +31,46 @@ export const getAllProducts = (page) => {
     }
   };
 };
+
+export function getByID(id) {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(`${URL}/products/${id}`);
+      dispatch({
+        type: GET_BY_ID,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
+
+export function getProductsname(name) {
+  return async function (dispatch) {
+    const productsname = (await axios.get(`${URL}/products?name=${name}`)).data;
+    console.log(productsname)
+    dispatch({
+      type: GET_PRODUCTS_BY_NAME,
+      payload: productsname,
+    });
+  };
+}
+
+export function clearDetail(){
+  console.log("llegue aca")
+  return {
+    type: CLEAR_DETAIL,
+  };
+}
+
+export function reset() {
+  return async function (dispatch) {
+    dispatch({
+      type: RESET
+    });
+  };
+}
 
 export const getAllCategories = () => {
   return async (dispatch) => {

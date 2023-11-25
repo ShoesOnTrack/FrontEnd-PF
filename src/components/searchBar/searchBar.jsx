@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import lupa from "@/helpers/assets/Lupa.png";
 import Image from 'next/image';
-import styles from "./SearchBar.module.css"; // Importa los estilos utilizando estilos modulares
+import styles from "./SearchBar.module.css";
+import { useDispatch } from 'react-redux';
+import { getProductsname } from '@/redux/actions';
 
 const SearchBar = () => {
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
 
     const handleChange = (event) => {
@@ -14,6 +17,7 @@ const SearchBar = () => {
   
     const handleSearch = useDebouncedCallback(() => {
       console.log(name);
+      dispatch(getProductsname(name))
     }, 300);
 
     return (
