@@ -41,6 +41,7 @@
     transform: rotate(720deg); /* Rota 360 grados al pasar el mouse por encima */
   }
 
+  
   .active-filter {
     display: inline; /* Muestra los elementos en línea */
     margin-right: 10px; /* Agrega un margen derecho para separar los elementos */

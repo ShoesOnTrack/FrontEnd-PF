@@ -10,7 +10,6 @@ const Card = ({id, name, brandName, description , price, color, image}) => {
                     <img src={image} alt={name}></img> </Link>
             </div>
             <div className={style.details}>
-                <span className={style.brandtitle}>{brandName}</span>
                 <h4>{name}</h4>
                 <p>{description}</p>
             </div>
