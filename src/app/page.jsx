@@ -1,15 +1,26 @@
 "use client"
-import HomePage from "./home/home"
-import { Provider } from "react-redux"
-import store from "@/redux/store"
+import Link from "next/link";
+import Cards from "@/components/cardsContainer/cards.jsx";
+import Header from "@/components/header/header";
+import Newsletter from "@/components/newsletter/Newsletter";
+import Footer from "@/components/footer/Footer";
+import { useEffect } from "react";
+import { dataAsArray } from "@/helpers/data";
+
+
+const HomePage = () => {
+
 
 const LoginPage = () => {
   return (
-      <div>
-        <Provider store={store}>
-          <HomePage />
-      </Provider>
-      </div>
+
+    <div>
+      <Header/>
+      <Cards shoes={dataAsArray}/>
+      <Newsletter/>
+      <Footer />
+       </div>
+
   );
 };
 
