@@ -5,7 +5,7 @@ import style from "../cardsContainer/cards.module.css"
 
 const Cards = ({ shoes }) => {
   return (
-    <div>
+    <div className={style.container}>
       {shoes?.map((shoe) => {
         return (
           <Card
@@ -13,7 +13,6 @@ const Cards = ({ shoes }) => {
             id={shoe.id}
             name={shoe.name}
             brandName={shoe.brandName}
-            description={shoe.description}
             price={`$${shoe.price}`}
             image={shoe.image}
             stock={shoe.stock}

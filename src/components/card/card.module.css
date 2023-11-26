@@ -1,35 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 
-/* {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-} */
-
-
-.body
-{
+.body {
     font-family: 'Roboto', sans-serif;
 }
-.a
-{
+
+.a {
     text-decoration: none;
 }
+
 .container {
     width: 300px;
-    height: 500px;
+    height: 400px;
     position: relative;
     box-shadow: 0 0px 20px #fefefe00;
     margin: 10px auto;
     background: #fafafa;
-    margin-left: 10px ;
+    margin-left: 10px;
+    transition: box-shadow 0.3s ease-in-out; /* Agregamos una transición para suavizar el cambio de sombra al pasar el mouse */
+}
+
+.container:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Cambiamos la sombra al pasar el mouse para dar un efecto de elevación */
 }
 
 .brand {
     position: absolute;
-    left: 0;
-    top: 12px;
+    left: 10px;
+    top: 10px;
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 700;
@@ -42,37 +39,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    padding: 35px;
+    height: 300px;
 }
 
 .container img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 500px;
+    max-height: 250px;
+    border: solid black 2px;
+    border-radius: 8px; /* Agregamos bordes redondeados a la imagen */
 }
 
-.details {
-    padding: 30px;
-}
+
 
 .details h4 a {
     font-weight: 500;
     display: block;
-    margin-bottom: 18px;
+    margin-bottom: 12px; /* Reducimos el margen inferior */
     text-transform: uppercase;
     color: #363636;
     text-decoration: none;
-    transition: 0.3s;
+    transition: color 0.3s ease-in-out; /* Añadimos una transición al color al pasar el mouse */
 }
+
 .details h4 a:hover {
     color: #fbb72c;
 }
 
 .details p {
-    font-size: 15px;
-    line-height: 22px;
-    /* margin-bottom: 18px; */
+    font-size: 14px; /* Reducimos el tamaño del texto */
+    line-height: 20px; /* Reducimos la altura de línea */
     color: #999;
+    margin-bottom: 12px; /* Reducimos el margen inferior */
 }
 
 .brandtitle {
@@ -80,12 +77,12 @@
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #ccc;
-    margin-bottom: 18px;
+    color: #ccc; /* Reducimos el margen inferior */
 }
 
 .price {
-    font-size: 18px;
+    font-size: 16px; /* Aumentamos el tamaño del precio */
     color: #fbb72c;
-    font-weight: 600;
+    font-weight: 600; /* Agregamos un poco de espacio sobre el precio */
 }
+
