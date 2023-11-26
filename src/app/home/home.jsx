@@ -3,6 +3,8 @@ import Link from "next/link";
 import Cards from "@/components/cardsContainer/cards.jsx";
 import Header from "@/components/header/header";
 import Filters from "@/components/filters/Filters";
+import Footer from "@/components/footer/Footer";
+import Newsletter from "@/components/newsletter/Newsletter";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import button from "@/helpers/assets/clockwise.svg"
@@ -120,6 +122,8 @@ const HomePage = () => {
           </div>
         )}
       <Cards shoes={Products}/>
+      <Newsletter/>
+      <Footer />
        </div>
   );
 };
