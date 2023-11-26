@@ -28,7 +28,7 @@ const Detail = () => {
     <div className={styles.centrardiv}>
       <div className={styles.space}>
 
-      {Product && (
+      {Product && Product.id === id &&(
         <div className={styles?.productdetail}>
           <div className={styles?.productinfo}>
 
