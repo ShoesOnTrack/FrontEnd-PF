@@ -20,7 +20,7 @@
 .productdetail {
     font-family: "Montserrat";
     width: 135vh;
-    padding: 2vh;
+    padding: 5vh;
     background-color: grey;
     border-radius: 2vh;
     display: flex;
@@ -41,6 +41,7 @@
   
   .productname {
     font-size: 4.5vh;
+    color: yellow;
   }
 
   .image {
