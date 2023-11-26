@@ -1,5 +1,8 @@
 import {
   GET_ALL_PRODUCTS,
+  GET_BY_ID,
+  GET_PRODUCTS_BY_NAME,
+  CLEAR_DETAIL,
   GET_ALL_CATEGORIES,
   SEARCH_PRODUCTS,
   GET_CART,
@@ -8,10 +11,13 @@ import {
   REMOVE_FROM_CART,
   SORT_PRICE,
   GET_FAVORITES,
+  RESET,
 } from "./action-type";
 
 const initialState = {
-  products: [],
+  AllProducts: [],
+  productShow: [],
+  productDetail: [],
   categories: [],
   filters: [],
   reviews: [],
@@ -25,8 +31,27 @@ const rootReducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        AllProducts: action.payload,
+        productShow: action.payload,
       };
+    
+    case GET_BY_ID: 
+    return {
+      ...state,
+      productDetail: action.payload
+    };
+
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        productDetail: []
+      }
+
+    case GET_PRODUCTS_BY_NAME:
+      return {
+        ...state,
+        productShow: action.payload
+      }
     case GET_ALL_CATEGORIES:
       return {
         ...state,
@@ -38,6 +63,11 @@ const rootReducer = (state = initialState, action) => {
         products: action.payload,
       };
     
+    case RESET:
+      return{
+        ...state,
+        productShow: state.AllProducts
+      }
     case SORT_PRICE:
       const { products } = state;
       const orderBy = action.payload;
@@ -87,7 +117,7 @@ const rootReducer = (state = initialState, action) => {
         favorites: action.payload,
       };
     default:
-      return state;
+      return {...state};
   }
 };
 
