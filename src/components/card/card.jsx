@@ -13,9 +13,10 @@ const Card = ({id, name, brandName, description , price, color, image}) => {
                 <span className={style.brandtitle}>{brandName}</span>
                 <h4>{name}</h4>
                 <p>{description}</p>
+            </div>
                 <div className={style.price}>{price}</div>
 				</div>
-            </div>
+            
 //         <div className={style.container}>
 //             <Link href={`/detail/${id}`}>
 //             <h2>{name}</h2>

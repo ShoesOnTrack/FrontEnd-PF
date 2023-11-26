@@ -17,31 +17,33 @@
     text-decoration: none;
 }
 .container {
-    width: 380px;
+    width: 300px;
+    height: 500px;
     position: relative;
-    box-shadow: 0 0px 20px #dfdfdf;
-    margin: 25px auto;
+    box-shadow: 0 0px 20px #fefefe00;
+    margin: 10px auto;
     background: #fafafa;
+    margin-left: 10px ;
 }
 
 .brand {
     position: absolute;
     left: 0;
-    top: 20px;
+    top: 12px;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     background: rgba(233, 163, 44, 0.786);
     color: #fff;
-    padding: 3px 10px;
+    padding: 3px 9px;
 }
 
 .containerImg {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 250px;
-    padding: 50px;
+    height: 200px;
+    padding: 35px;
 }
 
 .container img {
@@ -67,9 +69,9 @@
 }
 
 .details p {
-    font-size: 12px;
+    font-size: 15px;
     line-height: 22px;
-    margin-bottom: 18px;
+    /* margin-bottom: 18px; */
     color: #999;
 }
 
