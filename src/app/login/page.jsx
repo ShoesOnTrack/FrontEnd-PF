@@ -22,11 +22,14 @@ const LoginPage = () => {
                 className={style.google}
                 alt="google"
             />
-            <span className={style.span}>Ingresa con tu cuenta de Google</span>
+             <a href="/api/auth/login" className={style.span}>
+      Ingresa con tu cuenta de Google
+    </a>
             </button>
         <button className={style.olvidaste}>¿No tienes cuenta?</button>
         <button className={style.crear}>Crear Usuario</button>
       </div>
+      
     </div>
   );
 };
