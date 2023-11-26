@@ -7,15 +7,21 @@
   }
   .centrardiv {
     height: 100vh;
-    text-align: center;
-    background-color: rgb(196, 196, 196);
+    background-color: white;
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    text-align: left; /* Ajusta según tus necesidades */
   }
-  .centrardiv p{
-    margin: 0;
+  
+
+  .spacing {
+    margin-bottom: 20px;
   }
-  .space {
-    height: 5vh;
+  .spacing01 {
+    margin-bottom: 5px;
   }
+  
 
 .productdetail {
     font-family: "Montserrat";
@@ -28,12 +34,7 @@
     align-items: left;
   }
 
-  .productinfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+
   .section{
     width: 55vh;
     font-size: 16px;
@@ -42,8 +43,11 @@
   .productname {
     font-size: 4.5vh;
     color: yellow;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   .image {
     margin-left: 300px;
+    border: solid yellow 5px;
   }
