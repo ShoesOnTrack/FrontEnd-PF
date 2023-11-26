@@ -10,14 +10,18 @@ import { dataAsArray } from "@/helpers/data";
 
 const HomePage = () => {
 
+
+const LoginPage = () => {
   return (
+
     <div>
       <Header/>
       <Cards shoes={dataAsArray}/>
       <Newsletter/>
       <Footer />
        </div>
+
   );
 };
 
-export default HomePage;
+export default LoginPage;

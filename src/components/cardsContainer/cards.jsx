@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import Card from "../card/card";
+import style from "../cardsContainer/cards.module.css"
+
 
 const Cards = ({ shoes }) => {
   return (
@@ -25,3 +27,4 @@ const Cards = ({ shoes }) => {
 };
 
 export default Cards;
+
