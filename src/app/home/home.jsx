@@ -101,6 +101,7 @@ const HomePage = () => {
                     alt="Search"
                 />
         </button>
+
         {initialFilters?.marcas && (
           <div className={styles['active-filter']} onClick={() => handleFilterRemove('marcas')}>
             {initialFilters.marcas}
@@ -121,6 +122,7 @@ const HomePage = () => {
             {initialFilters.price}
           </div>
         )}
+        
       <Cards shoes={Products}/>
       <Newsletter/>
       <Footer />
