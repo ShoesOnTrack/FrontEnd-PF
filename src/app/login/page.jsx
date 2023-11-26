@@ -20,6 +20,7 @@ const LoginPage = () => {
                 width={25}
                 height={25}
                 className={style.google}
+                alt="google"
             />
             <span className={style.span}>Ingresa con tu cuenta de Google</span>
             </button>
