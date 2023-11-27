@@ -137,6 +137,7 @@ const HomePage = () => {
         />
       </button>
 
+<br />
         {isClient && initialFilters?.brandName && (
           <button className={styles['active-filter']} onClick={() => handleFilterRemove('brandName')}>
             {initialFilters?.brandName}
