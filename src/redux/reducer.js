@@ -1,5 +1,5 @@
 import {
-  GET_ALL_PRODUCTS,
+  FILTROS_AND_PAGINATION,
   GET_BY_ID,
   GET_PRODUCTS_BY_NAME,
   CLEAR_DETAIL,
@@ -15,8 +15,7 @@ import {
 } from "./action-type";
 
 const initialState = {
-  AllProducts: [],
-  productShow: [],
+  indexProductShow: [],
   productDetail: [],
   categories: [],
   filters: [],
@@ -28,11 +27,16 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_PRODUCTS:
+    // case GET_ALL_PRODUCTS:
+    //   return {
+    //     ...state,
+    //     AllProducts: action.payload,
+    //     productShow: action.payload,
+    //   };
+    case FILTROS_AND_PAGINATION:
       return {
         ...state,
-        AllProducts: action.payload,
-        productShow: action.payload,
+        indexProductShow: action.payload,
       };
     
     case GET_BY_ID: 
@@ -61,33 +65,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
-      };
-    
-    case RESET:
-      return{
-        ...state,
-        productShow: state.AllProducts
-      }
-    case SORT_PRICE:
-      const { products } = state;
-      const orderBy = action.payload;
-
-      let sortedProducts = [];
-      console.log("redux", products.precio);
-      switch (orderBy) {
-        case "price_asc":
-          sortedProducts = [...products].sort((a, b) => b.precio - a.precio);
-          break;
-        case "price_desc":
-          sortedProducts = [...products].sort((a, b) => a.precio - b.precio);
-          break;
-
-        default:
-          return { ...state };
-      }
-      return {
-        ...state,
-        products: sortedProducts,
       };
     case ADD_TO_CART:
       return {

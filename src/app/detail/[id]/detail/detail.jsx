@@ -10,46 +10,47 @@ const Detail = () => {
   const dispatch = useDispatch();
 
   const Product = useSelector((state) => state.productDetail);
-    const {id} = useParams()
+  const { id } = useParams()
 
-    const loadIdProduct = () => {
-        if(id === Product.id) return;
-        else dispatch(getByID(id));
-     }
+  const loadIdProduct = () => {
+    if (id === Product.id) return;
+    else dispatch(getByID(id));
+  }
 
-     useEffect(() => {
-      loadIdProduct()
-     }, [])
-     
-     useEffect(()=>{
-        console.log(Product)
-     },[])
+  useEffect(() => {
+    loadIdProduct()
+  }, [])
+
+  useEffect(() => {
+    console.log(Product)
+  }, [])
   return (
-    <div className={styles.centrardiv}>
-      <div className={styles.space}>
+    <div>
+      <div className={styles.centrardiv}>
 
-      {Product && Product.id === id &&(
-        <div className={styles?.productdetail}>
-          <div className={styles?.productinfo}>
+        {Product && Product.id === id && (
+          <div className={styles?.productdetail}>
+            <div className={styles?.productinfo}>
 
-        <h2 className={styles.productname}>{Product?.name}</h2>
-        <h2>{Product?.brandName}</h2>
-        <h2>{Product?.description}</h2>
-        <h2>{`Price: $${Product.price}`}</h2>
-        <h2>{Product?.color}</h2>
-        <h2>{Product?.material}</h2>
-          </div>
-        <Image
-        className={styles.image}
-            src={Product?.image}
-            width={600}
-            height={600}
-            alt={Product?.name || id}
+              <h2 className={styles.productname}>{Product?.name}</h2>
+              <h2 className={styles.spacing}>Brand: {Product?.brandName}</h2>
+              <h2 className={styles.spacing}>{`Price: $${Product.price}`}</h2>
+              <h2 className={styles.spacing}>Colors: {Product?.color}</h2>
+              <h2 className={styles.spacing}>{Product?.material}</h2>
+              <h2 className={styles.spacing01}>Description:</h2>
+              <h2>{Product?.description}</h2>
+            </div>
+            <Image
+              className={styles.image}
+              src={Product?.image}
+              width={600}
+              height={600}
+              alt={Product?.name || id}
             />
-       </div>
-         )
+          </div>
+        )
         }
-        </div>
+      </div>
     </div>
   );
 };
