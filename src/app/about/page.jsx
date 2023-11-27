@@ -195,7 +195,7 @@ const About = () => {
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/MaxyMarquez"
+                      href="https://github.com/Jessuss0"
                       target="_blank"
                     >
                       {github}

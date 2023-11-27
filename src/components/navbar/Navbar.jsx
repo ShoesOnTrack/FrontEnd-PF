@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className={style.nav}>
       <Link href={"/" } className={style.button} >
-        Back
+        Home
       </Link>
       <Link href={"/contact" } className={style.button} >
         Contact
