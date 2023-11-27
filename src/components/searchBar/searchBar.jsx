@@ -4,9 +4,9 @@ import lupa from "@/helpers/assets/Lupa.png";
 import Image from 'next/image';
 import styles from "./SearchBar.module.css";
 import { useDispatch } from 'react-redux';
-import { getProductsname } from '@/redux/actions';
+import { getFiltersAndPagination } from '@/redux/actions';
 
-const SearchBar = () => {
+const SearchBar = ({initialFilters, setInitialFilters, initialPageSet, setInitialPageSet}) => {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
 
@@ -16,8 +16,9 @@ const SearchBar = () => {
     };
   
     const handleSearch = useDebouncedCallback(() => {
-      console.log(name);
-      dispatch(getProductsname(name))
+        setInitialFilters({ ...initialFilters, name });
+        setInitialPageSet(1);
+        dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
     }, 300);
 
     return (

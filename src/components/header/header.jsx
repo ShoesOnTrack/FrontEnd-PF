@@ -6,13 +6,13 @@ import styles from "./header.module.css";
 
 // C:\Users\TEMP\OneDrive\Escritorio\PF SHOES\FrontEnd-PF\src\helpers\assets\pngwing.com.png
 
-function Header() {
+function Header({initialFilters, setInitialFilters, initialPageSet, setInitialPageSet}) {
   return (
     <div className={styles?.header}>
       <div className={styles.imagen}>
         <Image src={logo} width={200} height={120} alt="Search" />
       </div>
-      <SearchBar />
+      <SearchBar initialFilters={initialFilters} setInitialFilters={setInitialFilters} initialPageSet={initialPageSet} setInitialPageSet={setInitialPageSet}/>
       <Navbar />
     </div>
   );

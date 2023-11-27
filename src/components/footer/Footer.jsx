@@ -132,10 +132,10 @@ const Footer = () => {
           <p className={style.tittle}>Obten nuestra App</p>
           <ul className={style.ul}>
             
-            <Image src={google} width={125} height={45} />
+            <Image src={google} width={125} height={45} alt="google"/>
 
             <br />
-            <Image src={appStore} width={125} height={45} />
+            <Image src={appStore} width={125} height={45} alt="app"/>
           </ul>
         </div>
       </footer>

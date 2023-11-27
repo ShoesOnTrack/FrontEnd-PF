@@ -3,6 +3,7 @@ import Link from "next/link";
 import Cards from "@/components/cardsContainer/cards.jsx";
 import Header from "@/components/header/header";
 import Filters from "@/components/filters/Filters";
+import FilterCategory from "@/components/filters/filterCategory";
 import Footer from "@/components/footer/Footer";
 import Newsletter from "@/components/newsletter/Newsletter";
 import Paginate from "@/components/paginate/paginate.jsx";
@@ -11,13 +12,14 @@ import Image from "next/image";
 import button from "@/helpers/assets/clockwise.svg";
 import styles from "./Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, getFiltersAndPagination } from "@/redux/actions";
-import { current } from "@reduxjs/toolkit";
+import { getFiltersAndPagination } from "@/redux/actions";
+import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
 
 const HomePage = () => {
   const Page = useSelector((state) => state.indexProductShow);
   const [initialPageSet, setInitialPageSet] = useState(1);
-  const [initialFilters, setInitialFilters] = useState({});
+  const [initialFilters, setInitialFilters] = useLocalStorage('initialFilters', {});
+  const [isClient, setIsClient] = useState(false)
   // const Products = useSelector((state)=> state.productShow)
   const maxPages = Math.ceil(Page?.info?.total / 8);
   const currentPage = Page?.info?.page;
@@ -26,9 +28,9 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!initialPageSet) {
-      console.log("EntreAca");
       dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
       setInitialPageSet(true);
+      setIsClient(true)
     }
   }, [initialPageSet, dispatch]);
 
@@ -46,9 +48,11 @@ const HomePage = () => {
     let { name, value } = event.target;
     if(name === "marcas"){name = "brandName"}
     if(name === "price-order"){name = "priceOrd"}
+    if(name === "categorias"){name = "CategoryId"}
     console.log(name)
     setInitialFilters({ ...initialFilters, [name]: value });
     setInitialPageSet(1);
+    setIsClient(true)
   };
   
   
@@ -64,25 +68,41 @@ const HomePage = () => {
   },[initialFilters, initialPageSet])
   
   useEffect(()=>{
+    setIsClient(true)
     console.log(initialFilters);
     console.log(Page);
+    console.log(maxPages);
   }, [handleChange, loadProducts]);
 
   const marcasOpt = ["Nike", "Adidas"];
-  const categoriaOpt = ["running", "deportivas", "casuals", "lujo"]
+  const categoriaOpt = [
+[1,"ZAPATILLAS HIGH TOP"],
+    [2,"ZAPATILLAS MID TOP"],
+    [3,"ZAPATILLAS DEPORTIVAS"],
+    [ 4,"ZAPATILLAS LOW TOP"],
+    [5, "CHANCLAS"],
+   [ 6,"SANDALIAS"],
+    [7,"BOTAS"],
+    [8,"BOTINES"]
+  ]
   const colorOpt = ["negro", "rojo", "azul", "amarillo", "rosa", "blanco", "naranja", "oro"]
   //ordenamiento
   const PriceOpt = ["highest", "lowest"];
   return (
     <div className={styles?.home}>
-      <Header />
+      <Header 
+      initialFilters={initialFilters}
+      setInitialFilters={setInitialFilters}
+      initialPageSet={initialPageSet}
+      setInitialPageSet={setInitialPageSet}
+      />
       <Filters
           name="marcas"
           options={marcasOpt}
           handleChange={handleChange}
           state={null}
         />
-        <Filters
+        <FilterCategory
           name="categorias"
           options={categoriaOpt}
           handleChange={handleChange}
@@ -113,34 +133,40 @@ const HomePage = () => {
           src={button}
           width={25}
           height={25}
-          alt="Search"
+          alt="Reset"
         />
       </button>
 
-        {initialFilters?.brandName && (
-          <div className={styles['active-filter']} onClick={() => handleFilterRemove('brandName')}>
-            {initialFilters.brandName}
-          </div>
+        {isClient && initialFilters?.brandName && (
+          <button className={styles['active-filter']} onClick={() => handleFilterRemove('brandName')}>
+            {initialFilters?.brandName}
+          </button>
         )}
-        {initialFilters?.categorias && (
-          <div className={styles['active-filter']} onClick={() => handleFilterRemove('categorias')}>
-            {initialFilters.categorias}
-          </div>
+        {isClient && initialFilters?.CategoryId && (
+          <button className={styles['active-filter']} onClick={() => handleFilterRemove('CategoryId')}>
+            {categoriaOpt[initialFilters?.CategoryId - 1][1]}
+          </button>
         )}
-        {initialFilters?.color && (
-          <div className={styles['active-filter']} onClick={() => handleFilterRemove('color')}>
-            {initialFilters.color}
-          </div>
+        {isClient && initialFilters?.color && (
+          <button className={styles['active-filter']} onClick={() => handleFilterRemove('color')}>
+            {initialFilters?.color}
+          </button>
         )}
-        {initialFilters?.priceOrd && (
-          <div className={styles['active-filter']} onClick={() => handleFilterRemove('priceOrd')}>
-            {initialFilters.priceOrd}
-          </div>
+        {isClient && initialFilters?.priceOrd && (
+          <button className={styles['active-filter']} onClick={() => handleFilterRemove('priceOrd')}>
+            {initialFilters?.priceOrd}
+          </button>
         )}
         
       <Cards shoes={Page.results}/>
+      <Paginate
+      maxPages={maxPages}
+      currentPage={currentPage}
+      setInitialPageSet={setInitialPageSet}
+      />
       <Newsletter/>
       <Footer />
+      
     </div>
   );
 };
