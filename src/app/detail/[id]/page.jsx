@@ -1,5 +1,6 @@
+
 "use client"
-import HomePage from "./home/home"
+import Detail from "./detail/detail";
 import { Provider } from "react-redux"
 import store from "@/redux/store"
 
@@ -7,7 +8,7 @@ const LoginPage = () => {
   return (
       <div>
         <Provider store={store}>
-          <HomePage />
+          <Detail/>
       </Provider>
       </div>
   );
