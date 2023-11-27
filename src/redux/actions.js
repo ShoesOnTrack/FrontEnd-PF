@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {
-  GET_ALL_PRODUCTS,
+  FILTROS_AND_PAGINATION,
   GET_BY_ID,
   GET_PRODUCTS_BY_NAME,
   CLEAR_DETAIL,
@@ -18,16 +18,29 @@ import {
 
 const URL = 'http://localhost:3001';
 
-export const getAllProducts = () => {
+export const getFiltersAndPagination = (filtros, pageNumber) => {
   return async (dispatch) => {
+    // Construye un objeto que solo incluye filtros que tienen un valor definido y no son nulos
+    const filtrosValidos = Object.keys(filtros).reduce((acc, key) => {
+      if (filtros[key] !== null && filtros[key] !== undefined) {
+        acc[key] = filtros[key];
+      }
+      return acc;
+    }, {});
+
     try {
-      const { data } = await axios.get(`${URL}/products`);
+      // Construye la cadena de consulta de la URL para filtros y paginación
+      const queryString = new URLSearchParams(filtrosValidos).toString();
+      const url = `${URL}/products?${queryString}&page=${pageNumber}`;
+      console.log(url)
+      const response = await axios.get(url);
+
       dispatch({
-        type: GET_ALL_PRODUCTS,
-        payload: data,
+        type: FILTROS_AND_PAGINATION,
+        payload: response.data,
       });
     } catch (error) {
-      console.error(error);
+      console.error('Error en la solicitud de paginación con filtros:', error);
     }
   };
 };

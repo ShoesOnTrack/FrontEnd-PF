@@ -1,5 +1,5 @@
 import {
-  GET_ALL_PRODUCTS,
+  FILTROS_AND_PAGINATION,
   GET_BY_ID,
   GET_PRODUCTS_BY_NAME,
   CLEAR_DETAIL,
@@ -17,6 +17,7 @@ import {
 const initialState = {
   AllProducts: [],
   productShow: [],
+  indexProductShow: [],
   productDetail: [],
   categories: [],
   filters: [],
@@ -28,11 +29,17 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_PRODUCTS:
+    // case GET_ALL_PRODUCTS:
+    //   return {
+    //     ...state,
+    //     AllProducts: action.payload,
+    //     productShow: action.payload,
+    //   };
+    case FILTROS_AND_PAGINATION:
       return {
         ...state,
+        indexProductShow: action.payload,
         AllProducts: action.payload,
-        productShow: action.payload,
       };
     
     case GET_BY_ID: 
@@ -66,7 +73,7 @@ const rootReducer = (state = initialState, action) => {
     case RESET:
       return{
         ...state,
-        productShow: state.AllProducts
+        indexProductShow: state.AllProducts
       }
     case SORT_PRICE:
       const { products } = state;

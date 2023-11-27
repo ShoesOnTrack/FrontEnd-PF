@@ -35,7 +35,7 @@ const Detail = () => {
               <h2 className={styles.productname}>{Product?.name}</h2>
               <h2 className={styles.spacing}>Brand: {Product?.brandName}</h2>
               <h2 className={styles.spacing}>{`Price: $${Product.price}`}</h2>
-              <h2 className={styles.spacing}>Colours: {Product?.color}</h2>
+              <h2 className={styles.spacing}>Colors: {Product?.color}</h2>
               <h2 className={styles.spacing}>{Product?.material}</h2>
               <h2 className={styles.spacing01}>Description:</h2>
               <h2>{Product?.description}</h2>
