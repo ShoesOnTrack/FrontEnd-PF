@@ -40,28 +40,35 @@ const HomePage = () => {
     loadProducts()
   },[])
 
-  const handleChange = async (event) => {
-    const { name, value } = event.target;
+  const handleChange = (event) => {
+    let { name, value } = event.target;
+    if(name === "marcas"){name = "brandName"}
+    if(name === "price-order"){name = "priceOrd"}
+    console.log(name)
     setInitialFilters({ ...initialFilters, [name]: value });
     setInitialPageSet(1);
-    await dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
   };
-
+  
+  
   const handleFilterRemove = (filterName) => {
     const newInitialFilters = { ...initialFilters };
     delete newInitialFilters[filterName];
     setInitialFilters(newInitialFilters);
     dispatch(getFiltersAndPagination(newInitialFilters, 1));
   };
-
+  
+  useEffect(()=>{
+    dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
+  },[initialFilters, initialPageSet])
+  
   useEffect(()=>{
     console.log(initialFilters);
     console.log(Page)
   },[handleChange, loadProducts])
 
-  const marcasOpt = ["nike", "adidas"];
+  const marcasOpt = ["Nike", "Adidas"];
   const categoriaOpt = ["running", "deportivas", "casuals", "lujo"]
-  const colorOpt = ["negro", "rojo", "azul", "amarillo", "rosa"]
+  const colorOpt = ["negro", "rojo", "azul", "amarillo", "rosa", "blanco", "naranja", "oro"]
   //ordenamiento
   const PriceOpt = ['highest', 'lowest'];
   return (
@@ -72,25 +79,21 @@ const HomePage = () => {
           options={marcasOpt}
           handleChange={handleChange}
           state={null}
-          className={styles?.filters}
         />
         <Filters
-          className={styles.filters}
           name="categorias"
           options={categoriaOpt}
           handleChange={handleChange}
           state={null}
         />
         <Filters
-          //  className={styles.filters}
           name="color"
           options={colorOpt}
           handleChange={handleChange}
           state={null}
         />
         <Filters
-          //  className={styles.filters}
-          name="price"
+          name="price-order"
           options={PriceOpt}
           handleChange={handleChange}
           state={null}
@@ -98,9 +101,8 @@ const HomePage = () => {
         <button
           onClick={() => {
             setInitialPageSet(1); // Reiniciar a la página 1 cuando se hace clic en el botón de reset
-            // dispatch(getFiltersAndPagination({}, 1));
+            dispatch(getFiltersAndPagination({}, 1));
             setInitialFilters({});
-            dispatch(reset());
           }}
           className={styles?.button}
           >
@@ -113,9 +115,9 @@ const HomePage = () => {
                 />
         </button>
 
-        {initialFilters?.marcas && (
-          <div className={styles['active-filter']} onClick={() => handleFilterRemove('marcas')}>
-            {initialFilters.marcas}
+        {initialFilters?.brandName && (
+          <div className={styles['active-filter']} onClick={() => handleFilterRemove('brandName')}>
+            {initialFilters.brandName}
           </div>
         )}
         {initialFilters?.categorias && (
@@ -128,9 +130,9 @@ const HomePage = () => {
             {initialFilters.color}
           </div>
         )}
-        {initialFilters?.price && (
-          <div className={styles['active-filter']} onClick={() => handleFilterRemove('price')}>
-            {initialFilters.price}
+        {initialFilters?.priceOrd && (
+          <div className={styles['active-filter']} onClick={() => handleFilterRemove('priceOrd')}>
+            {initialFilters.priceOrd}
           </div>
         )}
         
