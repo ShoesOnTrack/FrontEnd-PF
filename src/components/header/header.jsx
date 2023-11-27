@@ -1,7 +1,9 @@
 import SearchBar from "@/components/searchBar/searchBar";
-import logo from "@/helpers/assets/pngwing.com.png";
+import Navbar from "@/components/navbar/Navbar";
+import logo from "@/helpers/assets/pngwin.png";
 import Image from "next/image";
 import styles from "./header.module.css";
+
 // C:\Users\TEMP\OneDrive\Escritorio\PF SHOES\FrontEnd-PF\src\helpers\assets\pngwing.com.png
 
 function Header() {
@@ -11,6 +13,7 @@ function Header() {
         <Image src={logo} width={200} height={120} alt="Search" />
       </div>
       <SearchBar />
+      <Navbar />
     </div>
   );
 }
