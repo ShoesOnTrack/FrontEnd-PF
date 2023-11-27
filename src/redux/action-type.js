@@ -1,3 +1,5 @@
+export const SHOW_LOADER = "SHOW_LOADER";
+export const HIDE_LOADER = "HIDE_LOADER";
 export const FILTROS_AND_PAGINATION = 'FILTROS_AND_PAGINATION';
 export const GET_BY_ID = "GET_BY_ID";
 export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME"

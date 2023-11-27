@@ -7,9 +7,10 @@ import {
 } from "react-icons/bi";
 import { RiTwitterXFill } from "react-icons/ri";
 import Link from "next/link";
-import google from "../../helpers/assets/google_play.png";
-import appStore from "../../helpers/assets/app_store.png";
+import google from "@/helpers/assets/google_play.png";
+import appStore from "@/helpers/assets/app_store.png";
 import style from "./style.module.css";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -127,19 +128,14 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className={style.app_links}>
+        <div>
           <p className={style.tittle}>Obten nuestra App</p>
           <ul className={style.ul}>
-            <li className={style.li}>
-              <Link href={"#"} to={""} className={style.link}>
-                <img src={google} alt="" />
-              </Link>
-            </li>
-            <li className={style.li}>
-              <Link href={"#"} to={""} className={style.link}>
-                <img src={appStore} alt="" />
-              </Link>
-            </li>
+            
+            <Image src={google} width={125} height={45} />
+
+            <br />
+            <Image src={appStore} width={125} height={45} />
           </ul>
         </div>
       </footer>
