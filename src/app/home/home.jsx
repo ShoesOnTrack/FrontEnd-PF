@@ -10,20 +10,29 @@ import Image from "next/image";
 import button from "@/helpers/assets/clockwise.svg"
 import styles from "./Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, reset } from "@/redux/actions";
+import { reset, getFiltersAndPagination } from "@/redux/actions";
 
 const HomePage = () => {
-  // const Page = useSelector((state) => state.indexProductShow);
+  const Page = useSelector((state) => state.indexProductShow);
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useState({})
-  const Products = useSelector((state)=> state.productShow)
+  // const Products = useSelector((state)=> state.productShow)
+  const maxPages = Math.ceil(Page?.info?.total / 8);
+  const currentPage = Page?.info?.page;
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!initialPageSet) {
+      console.log("EntreAca")
+      dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
+      setInitialPageSet(true);
+    }
+  }, [initialPageSet, dispatch]);
 
   const loadProducts = async () => {
-    if (!Products.length) {
-      await dispatch(getAllProducts());
+    if (!Page.length) {
+      await dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
     }
   };
 
@@ -31,24 +40,26 @@ const HomePage = () => {
     loadProducts()
   },[])
 
-  const handleChange= (event)=>{
+  const handleChange = async (event) => {
     const { name, value } = event.target;
     setInitialFilters({ ...initialFilters, [name]: value });
-  }
+    setInitialPageSet(1);
+    await dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
+  };
 
   const handleFilterRemove = (filterName) => {
     const newInitialFilters = { ...initialFilters };
     delete newInitialFilters[filterName];
     setInitialFilters(newInitialFilters);
-    // dispatch(getFiltersAndPagination(newInitialFilters, 1));
+    dispatch(getFiltersAndPagination(newInitialFilters, 1));
   };
 
   useEffect(()=>{
     console.log(initialFilters);
-    console.log(Products)
+    console.log(Page)
   },[handleChange, loadProducts])
 
-  const marcasOpt = ["nike", "converse", "adidas", "topper"];
+  const marcasOpt = ["nike", "adidas"];
   const categoriaOpt = ["running", "deportivas", "casuals", "lujo"]
   const colorOpt = ["negro", "rojo", "azul", "amarillo", "rosa"]
   //ordenamiento
@@ -123,7 +134,7 @@ const HomePage = () => {
           </div>
         )}
         
-      <Cards shoes={Products}/>
+      <Cards shoes={Page.results}/>
       <Newsletter/>
       <Footer />
        </div>
