@@ -1,0 +1,47 @@
+/* style.module.css */
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  border-radius: 50%;
+  margin-right: 16px; /* Aumenté el margen derecho para separar la imagen del nombre */
+}
+
+.profileName {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #e9e9e9; /* Cambia el color del nombre según tus preferencias */
+}
+
+.loginButton, .logoutButton {
+  background-color: #4caf50; /* Verde */
+  color: white;
+  padding: 12px 24px; /* Ajusta el tamaño del botón según sea necesario */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px; /* Ajusta el tamaño del texto del botón */
+  margin-top: 8px; /* Agrega un espacio superior al botón para separarlo del nombre */
+}
+
+.alertContainer {
+  background-color: #fff176; /* Amarillo claro */
+  color: #f57f17; /* Amarillo oscuro */
+  padding: 8px;
+  text-align: center;
+}
+
+.alertButton {
+  background-color: #ffb300; /* Naranja */
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px; /* Ajusta el tamaño del botón según sea necesario */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  display: inline-block;
+}
