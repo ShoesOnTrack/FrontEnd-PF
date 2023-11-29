@@ -24,7 +24,7 @@ const LoginAuth = () => {
             email_verified: user.email_verified,
           };
 
-          // Puedes realizar acciones adicionales con userData aquí.
+          
         }
       }
     };
