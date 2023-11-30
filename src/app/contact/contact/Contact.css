@@ -4,6 +4,8 @@
   padding: 6%;
 }
 
+
+
 .contact-container {
   background: #010b1d79;
   color: #fcfcfc;
@@ -19,6 +21,7 @@
   padding: 1rem;
   background:  rgba(5, 1, 29, 0.24);
   border-radius: 1rem;
+  
 }
 
 .contact-input {
