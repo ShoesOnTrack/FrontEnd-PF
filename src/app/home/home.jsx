@@ -21,7 +21,7 @@ const HomePage = () => {
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useLocalStorage('initialFilters', {});
   const [isClient, setIsClient] = useState(false)
-  const user = JSON.parse(window.localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user"))
   const maxPages = Math.ceil(Page?.info?.total / 8);
   const currentPage = Page?.info?.page;
 

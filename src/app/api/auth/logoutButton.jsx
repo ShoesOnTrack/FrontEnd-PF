@@ -6,7 +6,7 @@ const Logout = () => {
   const handleLogout = () => {
     
     router.push('/api/auth/logout');
-    window.localStorage.setItem("user", null)
+    localStorage.setItem("user", null)
   };
 
   return (
