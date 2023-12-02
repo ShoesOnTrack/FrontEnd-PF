@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
 
 import {
   SHOW_LOADER,
@@ -148,6 +149,7 @@ export const userRegister = (formData) => async () => {
   try {
     const response = await axios.post(`${URL}/users`, formData);
     console.log(response.data);
+    window.localStorage.setItem("user", JSON.stringify(response.data))
   } catch (error) {
     console.error(error);
   }

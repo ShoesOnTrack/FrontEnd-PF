@@ -21,7 +21,7 @@ const HomePage = () => {
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useLocalStorage('initialFilters', {});
   const [isClient, setIsClient] = useState(false)
-  // const Products = useSelector((state)=> state.productShow)
+  const user = JSON.parse(window.localStorage.getItem("user"))
   const maxPages = Math.ceil(Page?.info?.total / 8);
   const currentPage = Page?.info?.page;
 
@@ -70,7 +70,8 @@ const HomePage = () => {
   
   useEffect(()=>{
     setIsClient(true)
-    console.log(initialFilters);
+    console.log(initialFilters)
+    console.log(user)
   }, [handleChange, loadProducts]);
 
   const marcasOpt = ["Nike", "Adidas"];
