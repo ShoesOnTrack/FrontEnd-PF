@@ -27,14 +27,11 @@ export const showLoader = () => {
   };
 };
 
-
 export const hideLoader = () => {
   return {
     type: HIDE_LOADER,
   };
 };
-
-
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {
   return async (dispatch) => {
@@ -149,7 +146,7 @@ export const sortProducts = (orderBy) => {
 
 export const userRegister = (formData) => async () => {
   try {
-    const response = await axios.post("/usuarios", formData);
+    const response = await axios.post(`${URL}/users`, formData);
     console.log(response.data);
   } catch (error) {
     console.error(error);

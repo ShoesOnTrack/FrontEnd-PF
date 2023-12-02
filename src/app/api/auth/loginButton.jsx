@@ -14,7 +14,6 @@ const Login = () => {
   const router = useRouter();
 
   const handleLogin = () => {
-    
     router.push('/api/auth/login');
   };
 

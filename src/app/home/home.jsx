@@ -71,8 +71,6 @@ const HomePage = () => {
   useEffect(()=>{
     setIsClient(true)
     console.log(initialFilters);
-    console.log(Page);
-    console.log(maxPages);
   }, [handleChange, loadProducts]);
 
   const marcasOpt = ["Nike", "Adidas"];
