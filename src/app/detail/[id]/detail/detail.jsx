@@ -6,7 +6,6 @@ import styles from "./detail.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getByID, clearDetail } from "@/redux/actions";
 
-
 const Detail = () => {
   const handleClick = async () => {
     const response = await fetch("http://localhost:3001/payment/create-order", {
@@ -36,39 +35,45 @@ const Detail = () => {
   }, []);
   return (
     <div>
-       {Product && Product.id === id && (
-       <div className={styles.container}>
-     
-      <div className={styles.line1}></div>
-      <div className={styles.containerDetail}>
-        <div className={styles.containerImagen}>
-          <Image
-              className={styles.imagen}
-              src={Product?.image}
-              width={700}
-               height={700}
-             alt={Product?.name || id}
-            />
-        </div>
-        <div className={styles.containerInfo}>
-          <div className={styles.name}>{Product?.name}</div>
-          <div className={styles.description}>{Product?.description}</div>
+      {Product && Product.id === id && (
+        <div className={styles.container}>
+          <div className={styles.line1}></div>
+          <div className={styles.containerDetail}>
+            <div className={styles.containerImagen}>
+              <Image
+                className={styles.imagen}
+                src={Product?.image}
+                width={700}
+                height={700}
+                alt={Product?.name || id}
+              />
+            </div>
+            <div className={styles.containerInfo}>
+              <div className={styles.name}>{Product?.name}</div>
+              <div className={styles.description}>{Product?.description}</div>
+              <div className={styles.line}></div>
+              <div className={styles.price}>${Product.price}</div>
+              <div className={styles.color}>
+                <h5>Colores Disponibles:</h5>
+                {Product?.color}
+              </div>
+              <div className={styles.color}>
+                <h5>Material:</h5>
+                {Product?.details}
+              </div>
+              <div className={styles.line}></div>
+            </div>
+            <div className={styles.containerButton}>
+              <button className={styles.Button}>Agregar al Carrito</button>
+              <button className={styles.Button}>Añadir a Favoritos</button>
+              <button className={styles.Button} onClick={handleClick}>
+                Comprar
+              </button>
+            </div>
+          </div>
           <div className={styles.line}></div>
-          <div className={styles.price}>${Product.price}</div>
-          <div className={styles.color}><h5>Colores Disponibles:</h5>{Product?.color}</div>
-          <div className={styles.color}><h5>Material:</h5>{Product?.details}</div>
-          <div className={styles.line}></div>
         </div>
-      <div className={styles.containerButton}>
-        <button className={styles.Button} >Agregar al Carrito</button>
-        <button className={styles.Button} >Añadir a Favoritos</button>
-        <button className={styles.Button} onClick={handleClick}>Comprar</button> 
-      </div>
-     </div>  
-     <div className={styles.line}></div>
-     </div>
-     )
-     } 
+      )}
     </div>
     // <div>
     //   <div className={styles.centrardiv}>
