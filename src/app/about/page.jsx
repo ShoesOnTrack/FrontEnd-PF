@@ -55,7 +55,7 @@ const About = () => {
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/websterAJ"
+                      href="https://github.com/Irithium"
                       target="_blank"
                     >
                       {github}
@@ -83,7 +83,7 @@ const About = () => {
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/MelLopez22"
+                      href="https://github.com/JlucasGutierrez"
                       target="_blank"
                     >
                       {github}
@@ -104,14 +104,14 @@ const About = () => {
                   <div className="card-link">
                     <a
                       className="me-3"
-                      href="https://www.linkedin.com/in/matias-tari-299a10211/"
+                      href="https://www.linkedin.com/in/agustin-almonacid-1431851bb/"
                       target="_blank"
                     >
                       {linkedin}
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/MatiTarl "
+                      href="https://github.com/Turco777 "
                       target="_blank"
                     >
                       {github}
@@ -130,10 +130,18 @@ const About = () => {
                 <div className="card-social">
                   <p className="fs-5">Full Stack Developer</p>
                   <div className="card-link">
-                    <a className="me-3" href="">
+                    <a
+                      className="me-3"
+                      href="https://www.linkedin.com/in/agustin-almonacid-1431851bb/"
+                      target="_blank"
+                    >
                       {linkedin}
                     </a>
-                    <a className="me-3" href="">
+                    <a
+                      className="me-3"
+                      target="_blank"
+                      href="https://github.com/SergioVelezH"
+                    >
                       {github}
                     </a>
                   </div>
@@ -159,7 +167,7 @@ const About = () => {
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/Turco777 "
+                      href="https://github.com/ChavezBrian"
                       target="_blank"
                     >
                       {github}
@@ -187,7 +195,7 @@ const About = () => {
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/MaxyMarquez"
+                      href="https://github.com/Jessuss0"
                       target="_blank"
                     >
                       {github}
@@ -215,7 +223,7 @@ const About = () => {
                     </a>
                     <a
                       className="me-3"
-                      href="https://github.com/MaxyMarquez"
+                      href="https://github.com/NicolasNNG"
                       target="_blank"
                     >
                       {github}

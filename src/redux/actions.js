@@ -1,6 +1,8 @@
 import axios from "axios";
 
 import {
+  SHOW_LOADER,
+  HIDE_LOADER,
   FILTROS_AND_PAGINATION,
   GET_BY_ID,
   GET_PRODUCTS_BY_NAME,
@@ -17,6 +19,22 @@ import {
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
+
+
+export const showLoader = () => {
+  return {
+    type: SHOW_LOADER,
+  };
+};
+
+
+export const hideLoader = () => {
+  return {
+    type: HIDE_LOADER,
+  };
+};
+
+
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {
   return async (dispatch) => {
