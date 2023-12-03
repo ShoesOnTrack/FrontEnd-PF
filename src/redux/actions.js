@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
 
 import {
   SHOW_LOADER,
@@ -16,8 +17,13 @@ import {
   SORT_PRICE,
   GET_FAVORITES,
   RESET,
+<<<<<<< HEAD
   GET_USER_PRODUCTS,
   CREATE_SHOES
+=======
+  USER_LOGEADO,
+  CLEAR_USER
+>>>>>>> 0b30b2a0c517f01add1eb44c67ceef593d9b5744
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
@@ -29,14 +35,11 @@ export const showLoader = () => {
   };
 };
 
-
 export const hideLoader = () => {
   return {
     type: HIDE_LOADER,
   };
 };
-
-
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {
   return async (dispatch) => {
@@ -149,14 +152,26 @@ export const sortProducts = (orderBy) => {
   };
 };
 
-export const userRegister = (formData) => async () => {
+export const userRegister = (formData) => async (dispatch) => {
   try {
-    const response = await axios.post("/usuarios", formData);
-    console.log(response.data);
+    const response = await axios.post(`${URL}/users`, formData);
+    dispatch({
+      type: USER_LOGEADO,
+      payload: response.data,
+    });
   } catch (error) {
     console.error(error);
   }
 };
+
+export function clearUser() {
+  return async function (dispatch) {
+    dispatch({
+      type: CLEAR_USER
+    });
+  };
+}
+
 export const getCarrito = (userId) => {
   return async (dispatch) => {
     try {
