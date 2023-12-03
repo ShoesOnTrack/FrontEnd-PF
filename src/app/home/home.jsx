@@ -90,13 +90,14 @@ const HomePage = () => {
   const PriceOpt = ["highest", "lowest"];
   return (
     <div className={styles?.home}>
-      <NavBar/>
+      
       <Header 
       initialFilters={initialFilters}
       setInitialFilters={setInitialFilters}
       initialPageSet={initialPageSet}
       setInitialPageSet={setInitialPageSet}
       />
+      <NavBar/>
       <Filters
           name="marcas"
           options={marcasOpt}

@@ -1,4 +1,5 @@
 import React from 'react';
+import style from "./style.module.css"
 
 
 //const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
   };
 
   return (
-    <button className="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none   md:mr-0 md:inline-block rounded-lg" onClick={handleLogin}>Login</button>
+    <button className={style.button} onClick={handleLogin}>Login</button>
   );
 };
 
