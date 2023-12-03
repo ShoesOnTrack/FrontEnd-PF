@@ -14,6 +14,8 @@ import {
   RESET,
   GET_USER_PRODUCTS,
   CREATE_SHOES,
+  USER_LOGEADO,
+  CLEAR_USER
 } from "./action-type";
 
 const initialState = {
