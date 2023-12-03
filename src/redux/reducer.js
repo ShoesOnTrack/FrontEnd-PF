@@ -12,6 +12,8 @@ import {
   SORT_PRICE,
   GET_FAVORITES,
   RESET,
+  GET_USER_PRODUCTS,
+  CREATE_SHOES,
 } from "./action-type";
 
 const initialState = {
@@ -23,6 +25,7 @@ const initialState = {
   user: {},
   carrito: [],
   favorites: [],
+  userProducts:[],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -93,6 +96,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         favorites: action.payload,
       };
+
+    case GET_USER_PRODUCTS:
+      return{
+        ...state,
+        userProducts: action.payload
+      }
+    case CREATE_SHOES:
+      return{
+        ...state,
+        userProducts:[...state.userProducts,action.payload]
+      }    
     default:
       return {...state};
   }
