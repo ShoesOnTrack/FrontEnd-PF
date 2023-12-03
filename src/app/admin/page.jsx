@@ -4,7 +4,7 @@ import React from "react";
 import { getUserProducts } from "@/redux/actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ShoeList from "@/components/dashboard/shoeList";
+import ShoeList from "../../components/dashboard/ShoeList";
 
 const ShoesPage = () => {
   const dispatch = useDispatch();
