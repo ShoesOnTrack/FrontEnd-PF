@@ -14,10 +14,5 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const RESET = "RESET";
-<<<<<<< HEAD
 export const GET_USER_PRODUCTS = "GET_USER_PRODUCTS";
 export const CREATE_SHOES = "CREATE_SHOES";
-=======
-export const USER_LOGEADO = "USER_LOGEADO";
-export const CLEAR_USER = "CLEAR_USER";
->>>>>>> 0b30b2a0c517f01add1eb44c67ceef593d9b5744
