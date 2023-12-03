@@ -1,6 +1,6 @@
 "use client";
 
-import Shoe from "./Shoe";
+import Shoe from "./shoe";
 import style from "../dashboard/shoe.module.css"
 
 
