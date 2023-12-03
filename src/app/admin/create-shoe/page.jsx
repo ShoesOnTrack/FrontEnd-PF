@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const createShoes = () => {
+const CreateShoes = () => {
   const dispatch = useDispatch();
 
   const [shoe, setShoe] = useState({
@@ -189,4 +189,4 @@ const createShoes = () => {
   );
 };
 
-export default createShoes;
+export default CreateShoes;
