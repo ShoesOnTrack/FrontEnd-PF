@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getByID, clearDetail } from "@/redux/actions";
-
+import { BsCart } from 'react-icons/bs';
 
 const Detail = () => {
   const handleClick = async () => {
@@ -60,7 +60,7 @@ const Detail = () => {
           <div className={styles.line}></div>
         </div>
       <div className={styles.containerButton}>
-        <button className={styles.Button} >Agregar al Carrito</button>
+        <button className={styles.Button} > <BsCart /> Agregar al Carrito</button>
         <button className={styles.Button} >Añadir a Favoritos</button>
         <button className={styles.Button} onClick={handleClick}>Comprar</button> 
       </div>
