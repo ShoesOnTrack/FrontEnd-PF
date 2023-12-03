@@ -1,12 +1,15 @@
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { clearUser } from '@/redux/actions';
 
 const Logout = () => {
   const router = useRouter();
+  const dispatch = useDispatch()
 
   const handleLogout = () => {
     
     router.push('/api/auth/logout');
-    // localStorage.setItem("user", null)
+    dispatch(clearUser());
   };
 
   return (

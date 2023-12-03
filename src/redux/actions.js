@@ -16,7 +16,9 @@ import {
   REMOVE_FROM_CART,
   SORT_PRICE,
   GET_FAVORITES,
-  RESET
+  RESET,
+  USER_LOGEADO,
+  CLEAR_USER
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
@@ -145,15 +147,26 @@ export const sortProducts = (orderBy) => {
   };
 };
 
-export const userRegister = (formData) => async () => {
+export const userRegister = (formData) => async (dispatch) => {
   try {
     const response = await axios.post(`${URL}/users`, formData);
-    console.log(response.data);
-    window.localStorage.setItem("user", JSON.stringify(response.data))
+    dispatch({
+      type: USER_LOGEADO,
+      payload: response.data,
+    });
   } catch (error) {
     console.error(error);
   }
 };
+
+export function clearUser() {
+  return async function (dispatch) {
+    dispatch({
+      type: CLEAR_USER
+    });
+  };
+}
+
 export const getCarrito = (userId) => {
   return async (dispatch) => {
     try {

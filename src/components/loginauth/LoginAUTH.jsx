@@ -26,7 +26,6 @@ const LoginAuth = () => {
             email: user.email,
             email_verified: user.email_verified,
           };
-          console.log(userData)
           dispatch(userRegister(userData));
           
         }
