@@ -18,7 +18,9 @@ import {
   GET_FAVORITES,
   RESET,
   GET_USER_PRODUCTS,
-  CREATE_SHOES
+  CREATE_SHOES,
+  USER_LOGEADO,
+  CLEAR_USER
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
