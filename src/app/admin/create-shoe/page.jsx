@@ -164,9 +164,9 @@ const CreateShoes = () => {
           <br /> */}
           <label>Shoe Category:</label>
           <select name="category" onChange={handleChange} value={shoe.category}>
-            <option>Select Shoe Category</option>
+            <option value="">Select Shoe Category</option>
             {categories?.map((option, index) => (
-              <option  value={option}>
+              <option  key={index} value={option}>
                 {option}
               </option>
             ))}
