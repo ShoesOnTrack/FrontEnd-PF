@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
 
 import {
   SHOW_LOADER,
@@ -15,7 +16,11 @@ import {
   REMOVE_FROM_CART,
   SORT_PRICE,
   GET_FAVORITES,
-  RESET
+  RESET,
+  GET_USER_PRODUCTS,
+  CREATE_SHOES,
+  USER_LOGEADO,
+  CLEAR_USER
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
@@ -27,14 +32,11 @@ export const showLoader = () => {
   };
 };
 
-
 export const hideLoader = () => {
   return {
     type: HIDE_LOADER,
   };
 };
-
-
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {
   return async (dispatch) => {
@@ -147,14 +149,26 @@ export const sortProducts = (orderBy) => {
   };
 };
 
-export const userRegister = (formData) => async () => {
+export const userRegister = (formData) => async (dispatch) => {
   try {
-    const response = await axios.post("/usuarios", formData);
-    console.log(response.data);
+    const response = await axios.post(`${URL}/users`, formData);
+    dispatch({
+      type: USER_LOGEADO,
+      payload: response.data,
+    });
   } catch (error) {
     console.error(error);
   }
 };
+
+export function clearUser() {
+  return async function (dispatch) {
+    dispatch({
+      type: CLEAR_USER
+    });
+  };
+}
+
 export const getCarrito = (userId) => {
   return async (dispatch) => {
     try {
@@ -238,3 +252,29 @@ export const deleteFavorite = (datos) => async () => {
     console.error(error);
   }
 };
+
+
+export const getUserProducts = (idUser) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/products/all?idUser=${idUser}`);
+      dispatch({ type: GET_USER_PRODUCTS, payload: data });
+  } catch (error) {
+     console.error(error);
+  }
+}
+}
+
+
+export const createShoe = (shoe) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post("/products", shoe);
+      return dispatch({ type: CREATE_SHOES, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+      
+

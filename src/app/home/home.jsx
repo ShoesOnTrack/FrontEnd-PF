@@ -7,6 +7,7 @@ import FilterCategory from "@/components/filters/filterCategory";
 import Footer from "@/components/footer/Footer";
 import Newsletter from "@/components/newsletter/Newsletter";
 import Paginate from "@/components/paginate/paginate.jsx";
+import NavBar from "@/components/navbar/Navbar";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import button from "@/helpers/assets/clockwise.svg";
@@ -20,7 +21,7 @@ const HomePage = () => {
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useLocalStorage('initialFilters', {});
   const [isClient, setIsClient] = useState(false)
-  // const Products = useSelector((state)=> state.productShow)
+  const user = useSelector((state) => state.user);
   const maxPages = Math.ceil(Page?.info?.total / 8);
   const currentPage = Page?.info?.page;
 
@@ -69,9 +70,8 @@ const HomePage = () => {
   
   useEffect(()=>{
     setIsClient(true)
-    console.log(initialFilters);
-    console.log(Page);
-    console.log(maxPages);
+    console.log(initialFilters)
+    console.log(user)
   }, [handleChange, loadProducts]);
 
   const marcasOpt = ["Nike", "Adidas"];
@@ -90,12 +90,14 @@ const HomePage = () => {
   const PriceOpt = ["highest", "lowest"];
   return (
     <div className={styles?.home}>
+      
       <Header 
       initialFilters={initialFilters}
       setInitialFilters={setInitialFilters}
       initialPageSet={initialPageSet}
       setInitialPageSet={setInitialPageSet}
       />
+      <NavBar/>
       <Filters
           name="marcas"
           options={marcasOpt}
