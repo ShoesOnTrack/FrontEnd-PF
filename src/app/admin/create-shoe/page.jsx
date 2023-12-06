@@ -5,9 +5,25 @@ import style from "../create-shoe/create.module.css";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createShoe, getAllCategories } from "@/redux/actions";
 
 const CreateShoes = () => {
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+  // const userData = user.id; 
+  const categories = [
+    ["ZAPATILLAS HIGH TOP"],
+    ["ZAPATILLAS MID TOP"],
+    ["ZAPATILLAS DEPORTIVAS"],
+    ["ZAPATILLAS LOW TOP"],
+    ["CHANCLAS"],
+    ["SANDALIAS"],
+    ["BOTAS"],
+    ["BOTINES"],
+  ];
+  console.log(categories);
+  console.log(user)
 
   const [shoe, setShoe] = useState({
     name: "",
@@ -17,9 +33,9 @@ const CreateShoes = () => {
     image: "", // Aquí se almacenará la URL de la imagen
     category: "",
     color: "",
-    details: "",
     stock: "",
-    sizes: "",
+    details: [],
+    sizes: [],
     user: "",
     // Cambié el nombre de 'user' para asignarlo después
   });
@@ -29,19 +45,31 @@ const CreateShoes = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
+    let updatedShoe = { ...shoe };
+
+    if (e.target.name === "details" || e.target.name === "sizes") {
+      updatedShoe[e.target.name] = e.target.value;
+    } else {
+      updatedShoe = {
+        ...shoe,
+        [e.target.name]: e.target.value,
+      };
+      setShoe(updatedShoe);
+      setErrors(validateForm(updatedShoe));
+    }
+
     setShoe({ ...shoe, [e.target.name]: e.target.value });
     setErrors(validateForm({ ...shoe, [e.target.name]: e.target.value }));
   };
-
+  console.log(shoe)
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formErrors = validateForm(shoe);
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await dispatch(createShoes(shoe));
+        const response = await dispatch(createShoe(shoe));
 
         if (!response.error) {
           setMessage("You created a new shoe!");
@@ -53,10 +81,10 @@ const CreateShoes = () => {
             image: "", // Aquí se almacenará la URL de la imagen
             category: "",
             color: "",
-            details: "",
             stock: "",
-            sizes: "",
-            user: "",
+            details: [],
+            sizes: [],
+            user: user?.id,
           });
         } else {
           setMessage(`There is a problem: ${response.error.message}`);
@@ -73,12 +101,21 @@ const CreateShoes = () => {
     }
     return false;
   };
+  useEffect(() => {
+    if (user && user.id && !shoe.user) {
+      setShoe((shoe) => ({
+        ...shoe,
+        user: user.id,
+      }));
+    }
+  }, [user, shoe.user]);
+
 
   return (
     <div className={style.conte}>
       <form className={style.forcreate} onSubmit={handleSubmit}>
         <span>
-          User:
+          User: {user.email}
           {/* {user.name} */}
         </span>
         <h2>ENTER SHOE DATA</h2>
@@ -114,7 +151,13 @@ const CreateShoes = () => {
           <span>{errors.price}</span>
           <br />
           <label>Image:</label>
-          <input type="file" accept="image/" />
+          <input
+            type="text"
+            name="image"
+            placeholder="URL"
+            value={shoe.image}
+            onChange={handleChange}
+          />
           <span>{errors.image}</span>
 
           <br />
@@ -126,12 +169,27 @@ const CreateShoes = () => {
             value={shoe.category}
           />
           <br /> */}
-          <label>Event Category:</label>
+          <label>Shoe Category:</label>
           <select name="category" onChange={handleChange} value={shoe.category}>
-            <option value="">Select Shoe Category</option>
+            <option>Select Shoe Category</option>
+            {categories?.map((option, index) => (
+              <option  value={option}>
+                {option}
+              </option>
+            ))}
           </select>
 
           <span>{errors.category}</span>
+          <br />
+          <label>Stock:</label>
+          <input
+            name="stock"
+            placeholder="Enter stock..."
+            type="text"
+            value={shoe.stock}
+            onChange={handleChange}
+          />
+          <span>{errors.stock}</span>
           <br />
 
           <label>Color:</label>
@@ -148,7 +206,7 @@ const CreateShoes = () => {
           <input
             name="details"
             placeholder="Enter details..."
-            type="details"
+            type="text"
             value={shoe.details}
             onChange={handleChange}
           />
@@ -158,7 +216,7 @@ const CreateShoes = () => {
           <input
             name="sizes"
             placeholder="Enter Sizes..."
-            type="sizes"
+            type="text"
             value={shoe.sizes}
             onChange={handleChange}
           />
