@@ -9,59 +9,51 @@ import { createShoe, getAllCategories } from "@/redux/actions";
 
 const CreateShoes = () => {
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user);
-  // const userData = user.id; 
   const categories = [
-    ["ZAPATILLAS HIGH TOP"],
-    ["ZAPATILLAS MID TOP"],
-    ["ZAPATILLAS DEPORTIVAS"],
-    ["ZAPATILLAS LOW TOP"],
-    ["CHANCLAS"],
-    ["SANDALIAS"],
-    ["BOTAS"],
-    ["BOTINES"],
+    "ZAPATILLAS HIGH TOP",
+    "ZAPATILLAS MID TOP",
+    "ZAPATILLAS DEPORTIVAS",
+    "ZAPATILLAS LOW TOP",
+    "CHANCLAS",
+    "SANDALIAS",
+    "BOTAS",
+    "BOTINES",
   ];
-  console.log(categories);
-  console.log(user)
 
   const [shoe, setShoe] = useState({
     name: "",
     brandName: "",
     price: "",
     description: "",
-    image: "", // Aquí se almacenará la URL de la imagen
+    image: "",
     category: "",
     color: "",
     stock: "",
     details: [],
     sizes: [],
     user: "",
-    // Cambié el nombre de 'user' para asignarlo después
   });
 
   const [message, setMessage] = useState("");
-
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     let updatedShoe = { ...shoe };
 
     if (e.target.name === "details" || e.target.name === "sizes") {
-      updatedShoe[e.target.name] = e.target.value;
+      updatedShoe[e.target.name] = e.target.value.split(", ").map((item) => item.trim());
     } else {
       updatedShoe = {
         ...shoe,
         [e.target.name]: e.target.value,
       };
-      setShoe(updatedShoe);
-      setErrors(validateForm(updatedShoe));
     }
 
-    setShoe({ ...shoe, [e.target.name]: e.target.value });
-    setErrors(validateForm({ ...shoe, [e.target.name]: e.target.value }));
+    setShoe(updatedShoe);
+    setErrors(validateForm(updatedShoe));
   };
-  console.log(shoe)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm(shoe);
@@ -73,12 +65,14 @@ const CreateShoes = () => {
 
         if (!response.error) {
           setMessage("You created a new shoe!");
+          setTimeout(() => setMessage(""), 5000);
+
           setShoe({
             name: "",
             brandName: "",
             price: "",
             description: "",
-            image: "", // Aquí se almacenará la URL de la imagen
+            image: "",
             category: "",
             color: "",
             stock: "",
@@ -88,9 +82,11 @@ const CreateShoes = () => {
           });
         } else {
           setMessage(`There is a problem: ${response.error.message}`);
+          setTimeout(() => setMessage(""), 5000);
         }
       } catch (error) {
         setMessage(`There is a problem: ${error.message}`);
+        setTimeout(() => setMessage(""), 5000);
       }
     }
   };
@@ -101,6 +97,7 @@ const CreateShoes = () => {
     }
     return false;
   };
+
   useEffect(() => {
     if (user && user.id && !shoe.user) {
       setShoe((shoe) => ({
@@ -110,14 +107,10 @@ const CreateShoes = () => {
     }
   }, [user, shoe.user]);
 
-
   return (
     <div className={style.conte}>
       <form className={style.forcreate} onSubmit={handleSubmit}>
-        <span>
-          User: {user.email}
-          {/* {user.name} */}
-        </span>
+        <span>User: {user.email}</span>
         <h2>ENTER SHOE DATA</h2>
         <div className="mb-4">
           <label>Name:</label>
