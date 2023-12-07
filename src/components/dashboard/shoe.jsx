@@ -1,41 +1,23 @@
 "use client";
 import Link from "next/link";
+import style from "./shoe.module.css"
 
-const shoe = ({ shoe }) => {
-    return (
-      <div >
-        <div >
-        <div >
-          <h2>SHOE</h2>
-          <img
-            src={shoe.image}
-            alt={shoe.name}
-          />
-          <h2 >{shoe.name}</h2>
-          <div >
-            <div>
-              <Link href={`/admin/modify-shoe/${shoe.id}`}>
-                <button>
-                  
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                    />
-                </button>
-              </Link>
+const shoe = ({ id, name, brandName, description , price, color, image }) => {
+  return (
+    <div className={style.container} >     
+    {/* <div className={style.brand}>{brandName}</div> */}
+    <div className={style.containerImg}>
+        <Link href={`/admin/modify-shoe/${id}`}>
+            <img src={image} alt={name}></img> </Link>
+    </div>
+    <div className={style.details}>
+        <span className={style.brandtitle} >{brandName}</span>
+        <h4 className={style.name}>{name}</h4>
+      
+    </div>
+        <div className={style.price}>{price}</div>
+ </div>
+  );
+};
 
-              <button
-                onClick={() => handleChange(shoe.id)}
-              >
-                {statusEvent === "active" ? "Active" : "Inactive"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    );
-  };
-  
-  export default shoe;
+export default shoe;

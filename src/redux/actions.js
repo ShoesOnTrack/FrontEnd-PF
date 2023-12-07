@@ -20,7 +20,8 @@ import {
   GET_USER_PRODUCTS,
   CREATE_SHOES,
   USER_LOGEADO,
-  CLEAR_USER
+  CLEAR_USER,
+  CHANGE_SHOE
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
@@ -254,10 +255,10 @@ export const deleteFavorite = (datos) => async () => {
 };
 
 
-export const getUserProducts = (idUser) => {
+export const getUserProducts = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/products/all?idUser=${idUser}`);
+      const { data } = await axios.get(`/products/all`);
       dispatch({ type: GET_USER_PRODUCTS, payload: data });
   } catch (error) {
      console.error(error);
@@ -271,6 +272,17 @@ export const createShoe = (shoe) => {
     try {
       const { data } = await axios.post("/products", shoe);
       return dispatch({ type: CREATE_SHOES, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const updateShoe = (shoe) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put("/products/change", shoe);
+      return dispatch({ type: CHANGE_SHOE, payload: data });
     } catch (error) {
       console.error(error);
     }
