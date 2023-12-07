@@ -79,15 +79,15 @@ const CreateShoes = () => {
     e.preventDefault();
     const formErrors = validateForm(shoe);
     setErrors(formErrors);
-
+  
     if (Object.keys(formErrors).length === 0) {
       try {
         const response = await dispatch(createShoe(shoe));
-
+  
         if (!response.error) {
-          setMessage("You created a new shoe!");
-          setTimeout(() => setMessage(""), 5000);
-
+          // Mostrar alerta cuando se crea exitosamente un "shoe"
+          window.alert("Successfully created shoe!");
+  
           setShoe({
             name: "",
             brandName: "",
@@ -111,6 +111,7 @@ const CreateShoes = () => {
       }
     }
   };
+  
 
   const handleDisabled = () => {
     for (let error in errors) {
@@ -131,7 +132,7 @@ const CreateShoes = () => {
   return (
     <div className={style.conte}>
       <form className={style.forcreate} onSubmit={handleSubmit}>
-        <span>User: {user.email}</span>
+        <h4>User: {user.email}</h4>
         <h2>ENTER SHOE DATA</h2>
         <div className="mb-4">
           <label>Name:</label>
@@ -226,11 +227,12 @@ const CreateShoes = () => {
           <br />
           <div>
             <label>Select the sizes of your shoe:</label>
+            <br />
             <div className={style.checkboxContainer}>
               {Array.isArray(medidas) && medidas.length > 0 ? (
                 medidas.map((med, index) => (
                   <div key={index} className={style.checkboxOption}>
-                    <h4 htmlFor={`opcion${index}`}>{med}</h4>
+                    <p htmlFor={`opcion${index}`}>{med}</p>
                     <input
                       type="checkbox"
                       id={`opcion${index}`}
