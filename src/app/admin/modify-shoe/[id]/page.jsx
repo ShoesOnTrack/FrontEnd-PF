@@ -73,7 +73,7 @@ const ModifyShoe = () => {
 
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await dispatch(updateShoe(id,shoe));
+        const response = await dispatch(updateShoe(shoe));
 
         if (!response.error) {
           // Mostrar alerta cuando se crea exitosamente un "shoe"

@@ -19,4 +19,5 @@ export const CREATE_SHOES = "CREATE_SHOES";
 export const USER_LOGEADO = "USER_LOGEADO";
 export const CLEAR_USER = "CLEAR_USER";
 export const CHANGE_SHOE = "CHANGE_SHOE";
+export const DELETE_SHOE = "DELETE_SHOE";
 

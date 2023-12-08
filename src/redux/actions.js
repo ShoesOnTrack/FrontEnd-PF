@@ -21,7 +21,8 @@ import {
   CREATE_SHOES,
   USER_LOGEADO,
   CLEAR_USER,
-  CHANGE_SHOE
+  CHANGE_SHOE,
+  DELETE_SHOE
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
@@ -285,6 +286,19 @@ export const updateShoe = (shoe) => {
       return dispatch({ type: CHANGE_SHOE, payload: data });
     } catch (error) {
       console.error(error);
+    }
+  };
+};
+
+
+export const deleteShoe = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/products/${id}`);
+      dispatch({ type: DELETE_SHOE, payload: data });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: DELETE_SHOE, payload: error.message }); // Ejemplo: acción de error
     }
   };
 };

@@ -12,6 +12,7 @@ export default function validateForm(inputs) {
   if (!regPrice.test(inputs.price))
     errors.price = "A Price must be a decimal number";
   if (!inputs.description) errors.description = "A Description must be entered";
+  if (inputs.description.length > 150) errors.description = "The description cannot contain more than 150 characters";
   // if (!inputs.image) errors.image = "A Image must be entered";
   if (!inputs.category) errors.category = "You must select a shoe Category";
   if (!inputs.color) errors.color = "A Color must be entered";

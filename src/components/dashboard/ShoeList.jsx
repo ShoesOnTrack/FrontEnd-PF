@@ -2,10 +2,19 @@
 
 import Shoe from "./shoe";
 import style from "../dashboard/shoe.module.css"
+import React, { useState, useEffect } from "react";
 
 
 
 const ShoeList = ({ shoes }) => {
+
+  // useEffect(() => {
+    
+  // }, [shoes]);
+
+
+
+
     return (
       <div className={style.todo} >
         {shoes.map((shoe) => (

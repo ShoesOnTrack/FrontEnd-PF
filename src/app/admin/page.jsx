@@ -13,7 +13,7 @@ const ShoesPage = () => {
 
   useEffect(() => {
     dispatch(getUserProducts());
-  }, []);
+  }, [shoes]);
 
   console.log(shoes);
 
