@@ -50,6 +50,24 @@ const ModifyShoe = () => {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    // Validar que se haya seleccionado un archivo
+    if (file) {
+      // Puedes realizar más validaciones aquí, si es necesario
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const updatedShoe = { ...shoe };
+        updatedShoe.image = reader.result;
+        setShoe(updatedShoe);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     const updatedShoe = { ...shoe };
@@ -115,15 +133,16 @@ const ModifyShoe = () => {
     e.preventDefault();
     const formErrors = validateModify(shoe);
     setErrors(formErrors);
-
+  
     if (Object.keys(formErrors).length === 0) {
       try {
         const response = await dispatch(updateShoe(shoe));
-
+  
         if (!response.error) {
           // Mostrar alerta cuando se crea exitosamente un "shoe"
-          toast.success("Successfully shoe modify!")
-
+          toast.success("Successfully shoe modify!");
+  
+          // Resetear el estado del formulario después de un envío exitoso
           setShoe({
             id: "",
             name: "",
@@ -134,16 +153,22 @@ const ModifyShoe = () => {
             stock: "",
             sizes: [],
           });
+  
+          // Recargar la página después de 1.5 segundos
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         } else {
-          toast.error(`Ups!${error.message}`)
+          toast.error(`Ups! ${response.error.message || 'Error desconocido'}`);
           setTimeout(() => setMessage(""), 5000);
         }
       } catch (error) {
-        toast.error(`Ups!${error.message}`)
+        toast.error(`Ups! Hubo un problema: ${error.message || 'Error desconocido'}`);
         setTimeout(() => setMessage(""), 5000);
       }
     }
   };
+  
 
   const handleDisabled = () => {
     for (let error in errors) {
@@ -159,7 +184,8 @@ const ModifyShoe = () => {
         id: id,
       }));
     }
-  }, [id, shoe.id]);
+  }, [id]); // solo ejecutar cuando id cambia
+  
 
   //   useEffect(() => {
   //     dispatch(getProductsname(name))
@@ -196,14 +222,13 @@ const ModifyShoe = () => {
           <span>{errors.price}</span>
           <br />
           <label>Image:</label>
-          <input
-            type="text"
-            name="image"
-            placeholder="URL"
-            value={shoe.image}
-            onChange={handleChange}
-          />
-          <span>{errors.image}</span>
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleImageUpload}
+        />
+        <span>{errors.image}</span>
 
           <br />
 

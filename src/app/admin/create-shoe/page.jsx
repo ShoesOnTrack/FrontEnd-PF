@@ -16,7 +16,7 @@ const CreateShoes = () => {
   const [inputDisabled, setInputDisabled] = useState(false);
 
   const medidas = [
-    19,20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48
+    19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48
   ];
 
   const categories = [
@@ -57,103 +57,107 @@ const CreateShoes = () => {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
 
+  const updateForm = (fieldName, value) => {
+    setShoe((prevShoe) => ({
+      ...prevShoe,
+      [fieldName]: value,
+    }));
+  };
+
   const handleBrandNameSelectChange = (e) => {
     const { name, value } = e.target;
-    const updatedShoe = { ...shoe };
-    let updatedErrors = { ...errors };
-  
-    updatedShoe[name] = value;
-  
+    updateForm(name, value);
+
+    const updatedErrors = { ...errors };
     if (name === "brandName" && value !== "") {
       setInputDisabled(true);
-      delete updatedErrors[name]; // Limpiar el error si se selecciona una marca
+      delete updatedErrors[name];
     } else {
       setInputDisabled(false);
-      updatedErrors[name] = "Brand name is required"; // Mostrar error si no se selecciona una marca
+      updatedErrors[name] = "Brand name is required";
     }
-  
-    setShoe(updatedShoe);
+
     setErrors(updatedErrors);
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const updatedShoe = { ...shoe };
+        updatedShoe.image = reader.result;
+        setShoe(updatedShoe);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleBrandNameInputChange = (e) => {
     const { name, value } = e.target;
-    const updatedShoe = { ...shoe };
-    let updatedErrors = { ...errors };
-  
-    updatedShoe[name] = value;
-  
+    updateForm(name, value);
+
+    const updatedErrors = { ...errors };
     if (name === "brandName") {
-      // Validación para la marca
       if (value.trim() === "") {
         updatedErrors[name] = "Brand name is required";
       } else {
-        delete updatedErrors[name]; // Limpiar el error si la marca se ingresa correctamente
+        delete updatedErrors[name];
       }
-    } else {
-      // Aquí podrías agregar más validaciones para otros campos si es necesario
     }
-  
-    setShoe(updatedShoe);
+
     setErrors(updatedErrors);
   };
-  
+
 
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
-    const updatedShoe = { ...shoe };
-    let updatedErrors = { ...errors };
+    updateForm(name, value);
 
-    updatedShoe[name] = value;
-
+    const updatedErrors = { ...errors };
     if (name === "category" && value !== "") {
       setInputDisabled(true);
-      delete updatedErrors[name]; // Limpiar el error si se selecciona una categoría
+      delete updatedErrors[name];
     } else {
       setInputDisabled(false);
-      updatedErrors[name] = "Category is required"; // Mostrar error si no se selecciona una categoría
+      updatedErrors[name] = "Category is required";
     }
 
-    setShoe(updatedShoe);
     setErrors(updatedErrors);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const updatedShoe = { ...shoe };
-    let updatedErrors = { ...errors };
+    updateForm(name, value);
 
-    updatedShoe[name] = value;
-
+    const updatedErrors = { ...errors };
     if (name === "category") {
-      // Validación para los detalles
       if (value.trim() === "") {
         updatedErrors[name] = "Category is required";
       } else {
-        delete updatedErrors[name]; // Limpiar el error si los detalles se ingresan correctamente
+        delete updatedErrors[name];
       }
-    } else {
-      // Aquí podrías agregar más validaciones para otros campos si es necesario
     }
 
-    setShoe(updatedShoe);
     setErrors(updatedErrors);
   };
 
   const handleChange = (e) => {
     let updatedShoe = { ...shoe };
-
+  
     if (e.target.name === "category" && e.target.value !== "") {
-      setInputDisabled(true); // Si se selecciona una categoría, inhabilitar el input
+      setInputDisabled(true);
     } else {
-      setInputDisabled(false); // Si no se selecciona una categoría, habilitar el input
+      setInputDisabled(false);
     }
-
+  
     if (e.target.type === "checkbox" && e.target.name === "sizes") {
       const size = e.target.value;
       const isChecked = e.target.checked;
-
+  
       if (isChecked && !updatedShoe.sizes.includes(size)) {
         updatedShoe.sizes.push(size);
       } else if (!isChecked && updatedShoe.sizes.includes(size)) {
@@ -161,29 +165,44 @@ const CreateShoes = () => {
       }
     } else if (e.target.name === "details") {
       updatedShoe.details = [e.target.value];
+    } else if (e.target.name === "image") {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onloadend = () => {
+          updatedShoe.image = reader.result;
+          setShoe(updatedShoe);
+          setErrors((prevErrors) => ({ ...prevErrors, image: "" }));
+        };
+  
+        reader.readAsDataURL(file);
+      }
     } else {
       updatedShoe[e.target.name] = e.target.value;
     }
-
+  
     setShoe(updatedShoe);
     setErrors(validateForm(updatedShoe));
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm(shoe);
     setErrors(formErrors);
-
+  
     if (Object.keys(formErrors).length === 0) {
       try {
         const response = await dispatch(createShoe(shoe));
-
+  
         if (!response.error) {
           // Mostrar alerta cuando se crea exitosamente un "shoe"
-          // window.alert("Successfully created shoe!");
           toast.success("Successfully created shoe!");
-
-          setShoe({
+  
+          // Resetear el estado del formulario después de un envío exitoso
+          setShoe((prevShoe) => ({
+            ...prevShoe,
             name: "",
             brandName: "",
             price: "",
@@ -195,12 +214,17 @@ const CreateShoes = () => {
             details: [],
             sizes: [],
             user: user?.id,
-          });
+          }));
+  
+          // Recargar la página después de un envío exitoso
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         } else {
-          toast.error(`Ups!Hubo un problema`);
+          toast.error(`Ups! Hubo un problema`);
         }
       } catch (error) {
-        toast.error(`Ups!Hubo un problema`);
+        toast.error(`Ups! Hubo un problema`);
       }
     }
   };
@@ -257,12 +281,12 @@ const CreateShoes = () => {
           </select>
           <label>Create New Brand Name:</label>
           <input
-           name="brandName"
-           placeholder="Enter a New Brand"
-           type="text"
-           value={shoe.brandName}
-           onChange={handleBrandNameInputChange}
-           disabled={inputDisabled}
+            name="brandName"
+            placeholder="Enter a New Brand"
+            type="text"
+            value={shoe.brandName}
+            onChange={handleBrandNameInputChange}
+            disabled={inputDisabled}
           />
           <span>{errors.brandName}</span>
           <br />
@@ -278,14 +302,12 @@ const CreateShoes = () => {
           <br />
           <label>Image:</label>
           <input
-            type="text"
+            type="file"
             name="image"
-            placeholder="URL"
-            value={shoe.image}
-            onChange={handleChange}
+            accept="image/*"
+            onChange={handleImageUpload}
           />
           <span>{errors.image}</span>
-
           <br />
 
           <label>Shoe Category:</label>

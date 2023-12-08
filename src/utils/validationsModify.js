@@ -12,7 +12,9 @@ export default function validateModify(inputs) {
     errors.price = "A Price must be a number";
   if (!inputs.description) errors.description = "A Description must be entered";
   if (inputs.description.length > 300) errors.description = "The description cannot contain more than 300 characters";
-  if (!inputs.image) errors.image = "A Image must be entered";
+  if (!inputs.image || (typeof inputs.image === "string" && inputs.image.length === 0)) {
+    errors.image = "An Image must be entered";
+  }
   if (!inputs.category) errors.category = "You must select a shoe Category";
   if (!inputs.stock) errors.stock = "A Stock must be entered";
   if (!regStock.test(inputs.stock)) errors.stock = "A Stock must be a number";
