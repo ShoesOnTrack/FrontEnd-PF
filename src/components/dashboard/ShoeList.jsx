@@ -8,12 +8,6 @@ import React, { useState, useEffect } from "react";
 
 const ShoeList = ({ shoes }) => {
 
-  // useEffect(() => {
-    
-  // }, [shoes]);
-
-
-
 
     return (
       <div className={style.todo} >

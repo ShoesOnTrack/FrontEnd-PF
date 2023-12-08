@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import style from "./shoe.module.css";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteShoe } from "@/redux/actions";
 
@@ -11,14 +13,15 @@ const Shoe = ({ id, name, brandName, description, price, color, image }) => {
     try {
       await dispatch(deleteShoe(id));
       // Si el dispatch de la acción se completa sin errores, significa que el zapato se eliminó correctamente
-      window.alert("Successfully deleted shoe!");
+      toast.success("Successfully deleted shoe!")
     } catch (error) {
-      window.alert(error.message); // Muestra el mensaje de error obtenido
+      toast.error(`Ups!${error}`) // Muestra el mensaje de error obtenido
     }
   };
 
   return (
     <div className={style.container}>
+      <div><Toaster/></div>
       {/* <div className={style.brand}>{brandName}</div> */}
       <div className={style.containerImg}>
         <img src={image} alt={name}></img>
