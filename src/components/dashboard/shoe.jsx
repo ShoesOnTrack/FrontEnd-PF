@@ -7,8 +7,8 @@ const shoe = ({ id, name, brandName, description , price, color, image }) => {
     <div className={style.container} >     
     {/* <div className={style.brand}>{brandName}</div> */}
     <div className={style.containerImg}>
-        <Link href={`/admin/modify-shoe/${id}`}>
-            <img src={image} alt={name}></img> </Link>
+        
+            <img src={image} alt={name}></img>
     </div>
     <div className={style.details}>
         <span className={style.brandtitle} >{brandName}</span>
@@ -16,6 +16,12 @@ const shoe = ({ id, name, brandName, description , price, color, image }) => {
       
     </div>
         <div className={style.price}>{price}</div>
+        <div>
+          <button>DELETE</button>
+          <Link href={`/admin/modify-shoe/${id}`}>
+          <button>MODIFY</button>
+          </Link>
+        </div>
  </div>
   );
 };

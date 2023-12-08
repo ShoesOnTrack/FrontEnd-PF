@@ -1,23 +1,16 @@
 "use client";
 
-import validateForm from "@/utils/validate";
+import validateModify from "@/utils/validationsModify";
 import style from "./modify.module.css";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createShoe,
-  getAllCategories,
-  getByID,
-  getProductsname,
-  updateShoe,
-} from "@/redux/actions";
-import { useParams } from "react-router-dom";
+import { updateShoe } from "@/redux/actions";
+import { useParams } from "next/navigation";
 
 const ModifyShoe = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const product = useSelector((state) => state.productShow);
   const { id } = useParams();
 
   const medidas = [
@@ -33,16 +26,6 @@ const ModifyShoe = () => {
     "SANDALIAS",
     "BOTAS",
     "BOTINES",
-  ];
-
-  const shoeBrands = [
-    "Nike",
-    "Adidas",
-    "Puma",
-    "Reebok",
-    "New Balance",
-    "Converse",
-    "Vans",
   ];
 
   const [shoe, setShoe] = useState({
@@ -80,24 +63,24 @@ const ModifyShoe = () => {
     }
 
     setShoe(updatedShoe);
-    setErrors(validateForm(updatedShoe));
+    setErrors(validateModify(updatedShoe));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateForm(shoe);
+    const formErrors = validateModify(shoe);
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await dispatch(updateShoe(shoe));
+        const response = await dispatch(updateShoe(id,shoe));
 
         if (!response.error) {
           // Mostrar alerta cuando se crea exitosamente un "shoe"
           window.alert("Successfully created shoe!");
 
           setShoe({
-            id: id,
+            id: "",
             name: "",
             price: "",
             description: "",
@@ -124,20 +107,21 @@ const ModifyShoe = () => {
     return false;
   };
 
-//   useEffect(() => {
-//     if (user && user.id && !shoe.user) {
-//       setShoe((shoe) => ({
-//         ...shoe,
-//         user: user.id,
-//       }));
-//     }
-//   }, [user, shoe.user]);
+  useEffect(() => {
+    if (id && !shoe.id) {
+      setShoe(prevShoe => ({
+        ...prevShoe,
+        id: id,
+      }));
+    }
+  }, [id, shoe.id]);
 
   //   useEffect(() => {
   //     dispatch(getProductsname(name))
   //   }, [name]);
 
-//   console.log(product);
+    console.log(id);
+    console.log(shoe)
 
   return (
     <div className={style.conte}>
@@ -202,6 +186,7 @@ const ModifyShoe = () => {
           <div>
             <label>Select the sizes of your shoe:</label>
             <br />
+            <span>{errors.sizes}</span>
             <div className={style.checkboxContainer}>
               {Array.isArray(medidas) && medidas.length > 0 ? (
                 medidas.map((med, index) => (

@@ -281,7 +281,7 @@ export const createShoe = (shoe) => {
 export const updateShoe = (shoe) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put("/products/change", shoe);
+      const { data } = await axios.put(`/products/change`, shoe);
       return dispatch({ type: CHANGE_SHOE, payload: data });
     } catch (error) {
       console.error(error);

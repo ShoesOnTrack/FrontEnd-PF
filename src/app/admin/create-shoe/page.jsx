@@ -129,6 +129,8 @@ const CreateShoes = () => {
     }
   }, [user, shoe.user]);
 
+console.log(errors)
+
   return (
     <div className={style.conte}>
       <form className={style.forcreate} onSubmit={handleSubmit}>
@@ -222,12 +224,14 @@ const CreateShoes = () => {
             type="text"
             value={shoe.details}
             onChange={handleChange}
-          />
-          <span>{errors.details}</span>
+            />
+            <span>{errors.details}</span>
+          
           <br />
           <div>
             <label>Select the sizes of your shoe:</label>
             <br />
+              <span>{errors.sizes}</span>
             <div className={style.checkboxContainer}>
               {Array.isArray(medidas) && medidas.length > 0 ? (
                 medidas.map((med, index) => (
@@ -240,11 +244,14 @@ const CreateShoes = () => {
                       value={med}
                       onChange={handleChange}
                     />
+
                   </div>
+                  
                 ))
               ) : (
                 <p>Loading...</p>
               )}
+              <br />
             </div>
           </div>
           <br />
