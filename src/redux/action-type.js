@@ -20,4 +20,10 @@ export const USER_LOGEADO = "USER_LOGEADO";
 export const CLEAR_USER = "CLEAR_USER";
 export const CHANGE_SHOE = "CHANGE_SHOE";
 export const DELETE_SHOE = "DELETE_SHOE";
+export const GET_ALL_FAVS = 'GET_ALL_FAVS';
+export const GET_ALL_CARTS = 'GET_ALL_CARTS';
+export const REMOVE_FAV_BACK = 'REMOVE_FAV_BACK';
+export const REMOVE_CART_BACK = 'REMOVE_CART_BACK';
+export const NEW_FAVORITE = 'NEW_FAVORITE';
+export const NEW_CART = 'NEW_CART';
 
