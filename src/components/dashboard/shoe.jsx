@@ -4,7 +4,7 @@ import style from "./shoe.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteShoe } from "@/redux/actions";
 
-const shoe = ({ id, name, brandName, description, price, color, image }) => {
+const Shoe = ({ id, name, brandName, description, price, color, image }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
