@@ -38,4 +38,4 @@ const Shoe = ({ id, name, brandName, description, price, color, image }) => {
   );
 };
 
-export default shoe;
+export default Shoe;
