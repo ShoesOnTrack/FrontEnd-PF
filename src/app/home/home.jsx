@@ -53,7 +53,7 @@ const HomePage = () => {
   useEffect(() => {
     loadProducts();
     loadFavsCarts();
-  }, []);
+  }, [user]);
 
   const handleChange = (event) => {
     let { name, value } = event.target;

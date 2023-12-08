@@ -21,8 +21,30 @@ const Detail = () => {
   const [isCart, setIsCart] = useState(false);
   const Product = useSelector((state) => state.productDetail);
   const user = useSelector((state)=> state.user);
+  const favs = useSelector((state) => state.favorites);
+  const carrito = useSelector((state)=> state.carrito);
 
   const { id } = useParams();
+
+  useEffect(() => {
+    if(favs?.length){
+      favs?.forEach((fav) => {
+        if (fav.id === id) {
+          setIsFav(true);
+        }
+      });
+    }
+  }, [id, favs]);
+
+  useEffect(() => {
+    if(carrito?.length){
+      carrito?.forEach((cart) => {
+        if (cart.id === id) {
+          setIsCart(true);
+        }
+      });
+    }
+  }, [id, carrito]);
 
   const loadIdProduct = () => {
     if (id === Product.id) return;
@@ -84,10 +106,10 @@ const Detail = () => {
             </div>
             <div className={styles.containerButton}>
               {user?.email && 
-              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Quitar del Carrito' : 'Agregar al Carrito'}</button> </div>}
+              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Quitar del Carrito ' : 'Agregar al Carrito '}</button> </div>}
               {/* <button className={styles.Button}>Agregar al Carrito</button> */}
               {user?.email && 
-              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Quitar de Favoritos' : 'Añadir a Favoritos'}</button> </div>}
+              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Quitar de Favoritos ❤️' : 'Añadir a Favoritos 🤍'}</button> </div>}
               {/* <button className={styles.Button}>Añadir a Favoritos</button> */}
               <button className={styles.Button} onClick={handleClick}>
                 Comprar
