@@ -15,7 +15,13 @@ import {
   USER_LOGEADO,
   CLEAR_USER,
   CHANGE_SHOE,
-  DELETE_SHOE
+  DELETE_SHOE,
+  GET_ALL_CARTS,
+  GET_ALL_FAVS,
+  NEW_CART,
+  NEW_FAVORITE,
+  REMOVE_CART_BACK,
+  REMOVE_FAV_BACK
 } from "./action-type";
 
 const initialState = {
@@ -45,6 +51,42 @@ const rootReducer = (state = initialState, action) => {
         indexProductShow: action.payload,
       };
     
+    case GET_ALL_FAVS:
+      return{
+        ...state,
+        favorites: action.payload
+      }
+    
+    case NEW_FAVORITE:
+        return{
+          ...state,
+          favorites: action.payload
+        }
+
+    case REMOVE_FAV_BACK:
+      return{
+        ...state,
+        allFavoritesBack: action.payload
+      }
+
+    case GET_ALL_CARTS:
+      return{
+        ...state,
+        carrito: action.payload
+      }
+
+    case NEW_CART:
+      return{
+        ...state,
+        carrito: action.payload
+      }
+
+    case REMOVE_CART_BACK:
+      return{
+        ...state,
+        carrito: action.payload
+      }
+
     case USER_LOGEADO: 
     return {
       ...state,

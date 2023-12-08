@@ -22,11 +22,78 @@ import {
   USER_LOGEADO,
   CLEAR_USER,
   CHANGE_SHOE,
-  DELETE_SHOE
+  DELETE_SHOE,
+  GET_ALL_CARTS,
+  GET_ALL_FAVS,
+  NEW_CART,
+  NEW_FAVORITE,
+  REMOVE_CART_BACK,
+  REMOVE_FAV_BACK
 } from "./action-type";
 
 const URL = 'http://localhost:3001';
 
+export function getAllFavs(id) {
+  console.log('me despacharon');
+  
+  return async function (dispatch) {
+    const response = await axios.get(`${URL}/favs/${id}`);
+    dispatch({
+      type: GET_ALL_FAVS,
+      payload: response.data,
+    });
+  };
+}
+
+export function AddFavoriteBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/favs`, objectId);
+    dispatch({
+      type: NEW_FAVORITE,
+      payload: response.data,
+    });
+  };
+}
+
+export function removeFavoriteBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.put(`${URL}/favs`, objectId);
+    dispatch({
+      type: REMOVE_FAV_BACK,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllCarts(id) {
+  return async function (dispatch) {
+    const response = await axios.get(`${URL}/cart/${id}`);
+    dispatch({
+      type: GET_ALL_CARTS,
+      payload: response.data,
+    });
+  };
+}
+
+export function AddCartBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/cart`, objectId);
+    dispatch({
+      type: NEW_CART,
+      payload: response.data,
+    });
+  };
+}
+
+export function removeCartBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.put(`${URL}/cart`, objectId);
+    dispatch({
+      type: REMOVE_CART_BACK,
+      payload: response.data,
+    });
+  };
+}
 
 export const showLoader = () => {
   return {

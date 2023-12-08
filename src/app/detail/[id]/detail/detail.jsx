@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getByID, clearDetail } from "@/redux/actions";
+import { getByID, removeFavoriteBack, AddFavoriteBack, removeCartBack, AddCartBack } from "@/redux/actions";
 
 const Detail = () => {
   const handleClick = async () => {
@@ -17,9 +17,34 @@ const Detail = () => {
     window.location.href = data.links[1].href;
   };
   const dispatch = useDispatch();
-
+  const [isFav, setIsFav] = useState(false);
+  const [isCart, setIsCart] = useState(false);
   const Product = useSelector((state) => state.productDetail);
+  const user = useSelector((state)=> state.user);
+  const favs = useSelector((state) => state.favorites);
+  const carrito = useSelector((state)=> state.carrito);
+
   const { id } = useParams();
+
+  useEffect(() => {
+    if(favs?.length){
+      favs?.forEach((fav) => {
+        if (fav.id === id) {
+          setIsFav(true);
+        }
+      });
+    }
+  }, [id, favs]);
+
+  useEffect(() => {
+    if(carrito?.length){
+      carrito?.forEach((cart) => {
+        if (cart.id === id) {
+          setIsCart(true);
+        }
+      });
+    }
+  }, [id, carrito]);
 
   const loadIdProduct = () => {
     if (id === Product.id) return;
@@ -30,9 +55,25 @@ const Detail = () => {
     loadIdProduct();
   }, []);
 
-  useEffect(() => {
-    console.log(Product);
-  }, []);
+  const handleFavorite = () => {
+    if (isFav) {
+      setIsFav(false);
+      dispatch(removeFavoriteBack({UserId: user.id, ProductId: id}))
+    } else {
+      setIsFav(true);
+      dispatch(AddFavoriteBack({UserId: user.id, ProductId: id}))
+    }
+  };
+
+  const handleCarrito = () => {
+    if (isCart) {
+      setIsCart(false);
+      dispatch(removeCartBack({UserId: user.id, ProductId: id}))
+    } else {
+      setIsCart(true);
+      dispatch(AddCartBack({UserId: user.id, ProductId: id}))
+    }
+  };
   return (
     <div>
       {Product && Product.id === id && (
@@ -64,8 +105,12 @@ const Detail = () => {
               <div className={styles.line}></div>
             </div>
             <div className={styles.containerButton}>
-              <button className={styles.Button}>Agregar al Carrito</button>
-              <button className={styles.Button}>Añadir a Favoritos</button>
+              {user?.email && 
+              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Quitar del Carrito ' : 'Agregar al Carrito '}</button> </div>}
+              {/* <button className={styles.Button}>Agregar al Carrito</button> */}
+              {user?.email && 
+              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Quitar de Favoritos ❤️' : 'Añadir a Favoritos 🤍'}</button> </div>}
+              {/* <button className={styles.Button}>Añadir a Favoritos</button> */}
               <button className={styles.Button} onClick={handleClick}>
                 Comprar
               </button>
