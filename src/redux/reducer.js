@@ -13,7 +13,9 @@ import {
   GET_USER_PRODUCTS,
   CREATE_SHOES,
   USER_LOGEADO,
-  CLEAR_USER
+  CLEAR_USER,
+  CHANGE_SHOE,
+  DELETE_SHOE
 } from "./action-type";
 
 const initialState = {
@@ -26,6 +28,7 @@ const initialState = {
   carrito: [],
   favorites: [],
   userProducts:[],
+  deleteProducts:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -118,7 +121,17 @@ const rootReducer = (state = initialState, action) => {
       return{
         ...state,
         userProducts:[...state.userProducts,action.payload]
-      }    
+      }
+    case CHANGE_SHOE:
+      return{
+        ...state,
+        userProducts:action.payload
+      }
+    case DELETE_SHOE:
+      return{
+        ...state,
+        deleteProducts: action.payload
+      }        
     default:
       return {...state};
   }

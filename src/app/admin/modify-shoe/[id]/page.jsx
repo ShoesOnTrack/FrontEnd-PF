@@ -1,15 +1,17 @@
 "use client";
 
-import validateForm from "@/utils/validate";
-import style from "../create-shoe/create.module.css";
+import validateModify from "@/utils/validationsModify";
+import style from "./modify.module.css";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createShoe, getAllCategories } from "@/redux/actions";
+import { updateShoe } from "@/redux/actions";
+import { useParams } from "next/navigation";
 
-const CreateShoes = () => {
+const ModifyShoe = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const { id } = useParams();
 
   const medidas = [
     28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
@@ -26,28 +28,19 @@ const CreateShoes = () => {
     "BOTINES",
   ];
 
-  const shoeBrands = [
-    'Nike',
-    'Adidas',
-    'Puma',
-    'Reebok',
-    'New Balance',
-    'Converse',
-    'Vans'
-  ];
-
   const [shoe, setShoe] = useState({
+    id: id,
     name: "",
-    brandName: "",
+    // brandName: "",
     price: "",
     description: "",
     image: "",
     category: "",
-    color: "",
+    // color: "",
     stock: "",
-    details: [],
+    // details: [],
     sizes: [],
-    user: "",
+    // user: "",
   });
 
   const [message, setMessage] = useState("");
@@ -65,41 +58,36 @@ const CreateShoes = () => {
       } else if (!isChecked && updatedShoe.sizes.includes(size)) {
         updatedShoe.sizes = updatedShoe.sizes.filter((item) => item !== size);
       }
-    } else if (e.target.name === "details") {
-      updatedShoe.details = e.target.value.split(", ").map((item) => item.trim());
     } else {
       updatedShoe[e.target.name] = e.target.value;
     }
 
     setShoe(updatedShoe);
-    setErrors(validateForm(updatedShoe));
+    setErrors(validateModify(updatedShoe));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateForm(shoe);
+    const formErrors = validateModify(shoe);
     setErrors(formErrors);
-  
+
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await dispatch(createShoe(shoe));
-  
+        const response = await dispatch(updateShoe(shoe));
+
         if (!response.error) {
           // Mostrar alerta cuando se crea exitosamente un "shoe"
           window.alert("Successfully created shoe!");
-  
+
           setShoe({
+            id: "",
             name: "",
-            brandName: "",
             price: "",
             description: "",
             image: "",
             category: "",
-            color: "",
             stock: "",
-            details: [],
             sizes: [],
-            user: user?.id,
           });
         } else {
           setMessage(`There is a problem: ${response.error.message}`);
@@ -111,7 +99,6 @@ const CreateShoes = () => {
       }
     }
   };
-  
 
   const handleDisabled = () => {
     for (let error in errors) {
@@ -121,21 +108,26 @@ const CreateShoes = () => {
   };
 
   useEffect(() => {
-    if (user && user.id && !shoe.user) {
-      setShoe((shoe) => ({
-        ...shoe,
-        user: user.id,
+    if (id && !shoe.id) {
+      setShoe(prevShoe => ({
+        ...prevShoe,
+        id: id,
       }));
     }
-  }, [user, shoe.user]);
+  }, [id, shoe.id]);
 
-console.log(errors)
+  //   useEffect(() => {
+  //     dispatch(getProductsname(name))
+  //   }, [name]);
+
+    console.log(id);
+    console.log(shoe)
 
   return (
     <div className={style.conte}>
       <form className={style.forcreate} onSubmit={handleSubmit}>
         <h4>User: {user.email}</h4>
-        <h2>ENTER SHOE DATA</h2>
+        <h2>MODIFY YOUR SHOE</h2>
         <div className="mb-4">
           <label>Name:</label>
           <input
@@ -146,21 +138,6 @@ console.log(errors)
             onChange={handleChange}
           />
           <span>{errors.name}</span>
-          <br />
-          <label>Brand Name:</label>
-          <select
-            name="brandName"
-            value={shoe.brandName}
-            onChange={handleChange}
-          >
-            <option value="">Select Brand</option>
-            {shoeBrands.map((brand, index) => (
-              <option key={index} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
-          <span>{errors.brandName}</span>
           <br />
           <label>Price:</label>
           <input
@@ -206,32 +183,10 @@ console.log(errors)
           />
           <span>{errors.stock}</span>
           <br />
-
-          <label>Color:</label>
-          <input
-            name="color"
-            placeholder="Enter Colors..."
-            type="text"
-            value={shoe.color}
-            onChange={handleChange}
-          />
-          <span>{errors.color}</span>
-          <br />
-          <label>Details:</label>
-          <input
-            name="details"
-            placeholder="Enter details..."
-            type="text"
-            value={shoe.details}
-            onChange={handleChange}
-            />
-            <span>{errors.details}</span>
-          
-          <br />
           <div>
             <label>Select the sizes of your shoe:</label>
             <br />
-              <span>{errors.sizes}</span>
+            <span>{errors.sizes}</span>
             <div className={style.checkboxContainer}>
               {Array.isArray(medidas) && medidas.length > 0 ? (
                 medidas.map((med, index) => (
@@ -244,14 +199,11 @@ console.log(errors)
                       value={med}
                       onChange={handleChange}
                     />
-
                   </div>
-                  
                 ))
               ) : (
                 <p>Loading...</p>
               )}
-              <br />
             </div>
           </div>
           <br />
@@ -270,17 +222,17 @@ console.log(errors)
           {message && <span>{message}</span>}
 
           <div className={`${style.buttonContainer} mb-4`}>
-          <Link legacyBehavior href="/admin">
-            <a className={style.cancelButton}>CANCEL</a>
-          </Link>
+            <Link legacyBehavior href="/admin">
+              <a className={style.cancelButton}>CANCEL</a>
+            </Link>
 
-          <button
-            disabled={handleDisabled()}
-            type="submit"
-            className={style.submitButton}
-          >
-            SUBMIT
-          </button>
+            <button
+              disabled={handleDisabled()}
+              type="submit"
+              className={style.submitButton}
+            >
+              SUBMIT
+            </button>
           </div>
         </div>
       </form>
@@ -288,4 +240,4 @@ console.log(errors)
   );
 };
 
-export default CreateShoes;
+export default ModifyShoe;
