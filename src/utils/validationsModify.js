@@ -9,10 +9,10 @@ export default function validateModify(inputs) {
   if (!inputs.name) errors.name = "A Name must be entered";
   if (!inputs.price) errors.price = "A Price must be entered";
   if (!regPrice.test(inputs.price))
-    errors.price = "A Price must be a decimal number";
+    errors.price = "A Price must be a number";
   if (!inputs.description) errors.description = "A Description must be entered";
-  if (inputs.description.length > 150) errors.description = "The description cannot contain more than 150 characters";
-  // if (!inputs.image) errors.image = "A Image must be entered";
+  if (inputs.description.length > 300) errors.description = "The description cannot contain more than 300 characters";
+  if (!inputs.image) errors.image = "A Image must be entered";
   if (!inputs.category) errors.category = "You must select a shoe Category";
   if (!inputs.stock) errors.stock = "A Stock must be entered";
   if (!regStock.test(inputs.stock)) errors.stock = "A Stock must be a number";
