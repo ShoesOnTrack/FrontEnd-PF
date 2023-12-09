@@ -13,7 +13,7 @@ const ShoesPage = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(()=>{
-    if(!user?.isAdmin)
+    if(!user?.isAdmin)console.log("te voy a sacar a home")
 
   },[])
   useEffect(() => {
@@ -23,7 +23,6 @@ const ShoesPage = () => {
   return (
     <div>
       <div>
-
       <h1>ADMIN: {user.name}</h1>
       </div>
       <ShoeList shoes={shoes} />
