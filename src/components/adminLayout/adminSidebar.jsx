@@ -5,13 +5,14 @@ import React from "react";
 import Link from "next/link";
 
 const adminSidebar = () => {
+  const redirect = ()=>{
+    window.location.href = "/"
+  }
   return (
     <nav className={style.contenedor}>
-      <Link href={`/admin`}>
         <div className={style["button-container"]}>
-          <button className={style["button-link"]}>BACK</button>
+          <button className={style["button-link"]} onClick={redirect}>HOME</button>
         </div>
-      </Link>
       <div className={style.item}>
         {/* Contenedor para centrar los botones enlaces */}
         <div className={style["button-container"]}>
