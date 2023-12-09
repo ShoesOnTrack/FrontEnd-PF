@@ -5,9 +5,19 @@ import { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getByID, removeFavoriteBack, AddFavoriteBack, removeCartBack, AddCartBack } from "@/redux/actions";
+import { Modal, Button } from 'antd';
+import { useRouter } from 'next/navigation';
+
 
 const Detail = () => {
+  const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleClick = async () => {
+    if (!user?.email) {
+      setModalVisible(true);
+      return;
+    }
     const response = await fetch("http://localhost:3001/payment/create-order", {
       method: "POST",
     });
@@ -24,7 +34,10 @@ const Detail = () => {
   const favs = useSelector((state) => state.favorites);
   const carrito = useSelector((state)=> state.carrito);
 
+  
   const { id } = useParams();
+
+  
 
   useEffect(() => {
     if(favs?.length){
@@ -116,8 +129,27 @@ const Detail = () => {
               </button>
             </div>
           </div>
+          {!user?.email && (
+              <div>
+                <Modal
+                  title="¡Hola!"
+                  visible={modalVisible}
+                  onCancel={() => setModalVisible(false)}
+                  footer={[
+                    <Button key="login" type="primary" onClick={() => router.push("/api/auth/login")}>
+                      Iniciar Sesión
+                    </Button>,
+                  ]}
+                  style={{ fontSize: "16px", width: "90%" }}
+                 
+                >
+                  <p style={{ fontSize: "23px" }}>Para comprar, ingresa a tu cuenta.</p>
+                </Modal>
+              </div>
+            )}
           <div className={styles.line}></div>
         </div>
+        
       )}
     </div>
     // <div>
