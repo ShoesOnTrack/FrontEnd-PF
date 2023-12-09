@@ -108,7 +108,7 @@ const HomePage = () => {
       initialPageSet={initialPageSet}
       setInitialPageSet={setInitialPageSet}
       />
-      <NavBar/>
+      <NavBar user={user}/>
       <Filters
           name="marcas"
           options={marcasOpt}
