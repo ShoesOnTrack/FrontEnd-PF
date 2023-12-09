@@ -3,7 +3,7 @@ import Link from "next/link";
 import style from "./style.module.css";
 import { useEffect } from "react";
 
-const NavBar = (user) => {
+const NavBar = ({user}) => {
   useEffect(()=>{
     console.log(user)
   },[])
@@ -19,7 +19,10 @@ const NavBar = (user) => {
       <Link href={"/about" } className={style.btn} >
         <button className={style.btn}><span></span><p  data-text="About" data-title="About"></p></button>
       </Link>
-      {user?.isAdmin && <button className={style.btn}><span></span><p  data-text="About" data-title="ADMIN"></p> <Link href={"/admin"} className={style.btn}></Link> </button>}
+       <Link href={"/admin"} className={style.btn}>
+      {user?.isAdmin && <button className={style.btn}><span></span><p  data-text="ADMIN" data-title="ADMIN"></p>
+        </button>}
+        </Link> 
         </div>
     </nav>
   );
