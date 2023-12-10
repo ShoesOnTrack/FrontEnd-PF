@@ -28,8 +28,12 @@ import {
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
-  REMOVE_FAV_BACK
+  REMOVE_FAV_BACK,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_REQUEST,
+  SEND_EMAIL_FAILURE,
 } from "./action-type";
+import { data } from "autoprefixer";
 
 const URL = 'http://localhost:3001';
 
@@ -366,6 +370,26 @@ export const deleteShoe = (id) => {
     } catch (error) {
       console.error(error);
       dispatch({ type: DELETE_SHOE, payload: error.message }); // Ejemplo: acción de error
+    }
+  };
+};
+
+export const sendEmail = (formData) => {
+  return async (dispatch) => {
+    dispatch({ type: SEND_EMAIL_REQUEST });
+
+    try {
+      console.log("FormData in sendEmail action:", formData);
+      const response = await axios.post(`/contact/send`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      dispatch({ type: SEND_EMAIL_SUCCESS, payload: response.data });
+    } catch (error) {
+      console.error('Error en el envío del formulario de contacto:', error);
+      dispatch({ type: SEND_EMAIL_FAILURE, payload: error.message });
     }
   };
 };
