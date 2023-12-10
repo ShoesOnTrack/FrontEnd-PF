@@ -128,9 +128,9 @@ const HomePage = () => {
         setInitialFilters={setInitialFilters}
         initialPageSet={initialPageSet}
         setInitialPageSet={setInitialPageSet}
+
       user={user}
       />
-
 
       <Filters
         name="Marcas"

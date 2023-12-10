@@ -7,14 +7,20 @@ import SearchBar from "@/components/searchBar/searchBar";
 import logo from "@/helpers/assets/Logo.png";
 import Image from "next/image";
 import LoginAuth from "../loginauth/LoginAUTH";
+import { useEffect } from "react";
 
 const NavBar = ({
   initialFilters,
   setInitialFilters,
   initialPageSet,
   setInitialPageSet,
+  user,
 }) => {
   const pathname = usePathname();
+
+  useEffect(()=>{
+    console.log(user)
+  },[])
 
   return (
     <nav className={style.nav}>
@@ -51,6 +57,12 @@ const NavBar = ({
           </button>
         </Link>
       )}
+
+<Link href={"/admin"} className={style.link}>
+      {user?.isAdmin && <button className={style.button}>
+            <span>Admin</span>
+          </button>}
+        </Link> 
 
       <LoginAuth />
     </nav>
