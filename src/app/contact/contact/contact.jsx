@@ -117,7 +117,6 @@ function Contact() {
   return (
     <>
       <NavBar />
-      <Header />
       <section className="bg-blue-400 contactSection">
         <div className="contentContact max-w-screen-lg mx-auto p-4">
           {/*Loader*/}
