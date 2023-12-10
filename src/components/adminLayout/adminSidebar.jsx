@@ -7,9 +7,9 @@ import Link from "next/link";
 const adminSidebar = () => {
   return (
     <nav className={style.contenedor}>
-      <Link href={`/admin`}>
+      <Link href={`/`}>
         <div className={style["button-container"]}>
-          <button className={style["button-link"]}>BACK</button>
+          <button className={style["button-link"]}>HOME</button>
         </div>
       </Link>
       <div className={style.item}>
