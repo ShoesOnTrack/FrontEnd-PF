@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import style from "./style.module.css";
+
 import SearchBar from "@/components/searchBar/searchBar";
 import logo from "@/helpers/assets/Logo.png";
 import Image from "next/image";

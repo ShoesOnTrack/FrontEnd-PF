@@ -13,7 +13,7 @@ import Image from "next/image";
 import button from "@/helpers/assets/clockwise.svg";
 import styles from "./Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getFiltersAndPagination } from "@/redux/actions";
+import { getFiltersAndPagination, getAllFavs, getAllCarts } from "@/redux/actions";
 import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
 
 const HomePage = () => {
@@ -27,6 +27,8 @@ const HomePage = () => {
   const user = useSelector((state) => state.user);
   const maxPages = Math.ceil(Page?.info?.total / 8);
   const currentPage = Page?.info?.page;
+  const favs = useSelector((state) => state.favorites);
+  const carrito = useSelector((state)=> state.carrito);
 
   const dispatch = useDispatch();
 
@@ -44,9 +46,17 @@ const HomePage = () => {
     }
   };
 
+  const loadFavsCarts = ()=>{
+    if(user?.id){
+       dispatch(getAllFavs(user.id));
+       dispatch(getAllCarts(user.id));
+    }
+   }
+
   useEffect(() => {
     loadProducts();
-  }, []);
+    loadFavsCarts();
+  }, [user]);
 
   const handleChange = (event) => {
     let { name, value } = event.target;
@@ -77,12 +87,15 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
-  }, [initialFilters, initialPageSet]);
 
-  useEffect(() => {
-    setIsClient(true);
-    console.log(initialFilters);
-    console.log(user);
+  },[initialFilters, initialPageSet])
+  
+  useEffect(()=>{
+    setIsClient(true)
+    console.log(initialFilters)
+    console.log(user)
+    console.log(favs, carrito);
+
   }, [handleChange, loadProducts]);
 
   const marcasOpt = ["Nike", "Adidas"];
@@ -122,6 +135,9 @@ const HomePage = () => {
         initialPageSet={initialPageSet}
         setInitialPageSet={setInitialPageSet}
       />
+
+      <NavBar user={user}/>
+
       <Filters
         name="Marcas"
         options={marcasOpt}
