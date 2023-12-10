@@ -134,9 +134,8 @@ const HomePage = () => {
         setInitialFilters={setInitialFilters}
         initialPageSet={initialPageSet}
         setInitialPageSet={setInitialPageSet}
+        user={user}
       />
-
-      <NavBar user={user}/>
 
       <Filters
         name="Marcas"
