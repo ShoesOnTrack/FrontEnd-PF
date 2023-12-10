@@ -21,7 +21,10 @@ import {
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
-  REMOVE_FAV_BACK
+  REMOVE_FAV_BACK,
+  SEND_EMAIL_FAILURE,
+  SEND_EMAIL_REQUEST,
+  SEND_EMAIL_SUCCESS,
 } from "./action-type";
 
 const initialState = {
@@ -33,8 +36,11 @@ const initialState = {
   user: {},
   carrito: [],
   favorites: [],
-  userProducts:[],
-  deleteProducts:[]
+  userProducts: [],
+  deleteProducts: [],
+  sendingEmail: false, // Indica si se está enviando un correo electrónico
+  emailSent: false, // Indica si el correo electrónico se envió con éxito
+  emailError: null, // Almacena el error si hay un problema al enviar el correo electrónico
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -50,60 +56,60 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         indexProductShow: action.payload,
       };
-    
+
     case GET_ALL_FAVS:
-      return{
+      return {
         ...state,
         favorites: action.payload
       }
-    
+
     case NEW_FAVORITE:
-        return{
-          ...state,
-          favorites: action.payload
-        }
+      return {
+        ...state,
+        favorites: action.payload
+      }
 
     case REMOVE_FAV_BACK:
-      return{
+      return {
         ...state,
         allFavoritesBack: action.payload
       }
 
     case GET_ALL_CARTS:
-      return{
+      return {
         ...state,
         carrito: action.payload
       }
 
     case NEW_CART:
-      return{
+      return {
         ...state,
         carrito: action.payload
       }
 
     case REMOVE_CART_BACK:
-      return{
+      return {
         ...state,
         carrito: action.payload
       }
 
-    case USER_LOGEADO: 
-    return {
-      ...state,
-      user: action.payload
-    };
+    case USER_LOGEADO:
+      return {
+        ...state,
+        user: action.payload
+      };
 
     case CLEAR_USER:
       return {
         ...state,
         user: {}
       };
-    
-    case GET_BY_ID: 
-    return {
-      ...state,
-      productDetail: action.payload
-    };
+
+    case GET_BY_ID:
+      return {
+        ...state,
+        productDetail: action.payload
+      };
 
     case CLEAR_DETAIL:
       return {
@@ -155,27 +161,50 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_USER_PRODUCTS:
-      return{
+      return {
         ...state,
         userProducts: action.payload
       }
     case CREATE_SHOES:
-      return{
+      return {
         ...state,
-        userProducts:[...state.userProducts,action.payload]
+        userProducts: [...state.userProducts, action.payload]
       }
     case CHANGE_SHOE:
-      return{
+      return {
         ...state,
-        userProducts:action.payload
+        userProducts: action.payload
       }
     case DELETE_SHOE:
-      return{
+      return {
         ...state,
         deleteProducts: action.payload
-      }        
+      }
+    case SEND_EMAIL_REQUEST:
+      return {
+        ...state,
+        sendingEmail: true,
+        emailSent: false,
+        emailError: null,
+      };
+
+    case SEND_EMAIL_SUCCESS:
+      return {
+        ...state,
+        sendingEmail: false,
+        emailSent: true,
+        emailError: null,
+      };
+
+    case SEND_EMAIL_FAILURE:
+      return {
+        ...state,
+        sendingEmail: false,
+        emailSent: false,
+        emailError: action.payload, // Almacena el mensaje de error
+      };
     default:
-      return {...state};
+      return { ...state };
   }
 };
 
