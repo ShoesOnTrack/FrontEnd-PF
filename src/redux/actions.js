@@ -25,6 +25,7 @@ import {
   DELETE_SHOE,
   GET_ALL_CARTS,
   GET_ALL_FAVS,
+  GET_TESTIMONIALS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
@@ -134,6 +135,20 @@ export const getFiltersAndPagination = (filtros, pageNumber) => {
       });
     } catch (error) {
       console.error('Error en la solicitud de paginación con filtros:', error);
+    }
+  };
+};
+
+export const getTestimonials = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/reviews');
+      dispatch({
+        type: GET_TESTIMONIALS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 };

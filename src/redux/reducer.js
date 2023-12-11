@@ -18,6 +18,7 @@ import {
   DELETE_SHOE,
   GET_ALL_CARTS,
   GET_ALL_FAVS,
+  GET_TESTIMONIALS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
@@ -97,6 +98,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload
+      };
+
+    case GET_TESTIMONIALS:
+      return {
+        ...state,
+        reviews: action.payload,
       };
 
     case CLEAR_USER:
