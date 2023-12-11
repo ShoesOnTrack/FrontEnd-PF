@@ -4,7 +4,7 @@ import Header from "@/components/header/header";
 import Newsletter from "@/components/newsletter/Newsletter";
 import Footer from "@/components/footer/Footer";
 import NavBar from "@/components/navbar/Navbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sendEmail } from "@/redux/actions";
 import { validateName, validateEmail, validatePhone, validateMessage } from "@/utils/formValidation";
 import "./Contact.css";
@@ -17,6 +17,7 @@ import { showLoader, hideLoader } from "@/redux/actions";
 
 function Contact() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -116,7 +117,7 @@ function Contact() {
   // Renderizado
   return (
     <>
-      <NavBar />
+      <NavBar  user={user}/>
       <section className="bg-blue-400 contactSection">
         <div className="contentContact max-w-screen-lg mx-auto p-4">
           {/*Loader*/}
