@@ -123,18 +123,13 @@ const HomePage = () => {
   const PriceOpt = ["highest", "lowest"];
   return (
     <div className={styles?.home}>
-      {/* <Header
-        initialFilters={initialFilters}
-        setInitialFilters={setInitialFilters}
-        initialPageSet={initialPageSet}
-        setInitialPageSet={setInitialPageSet}
-      /> */}
       <NavBar
         initialFilters={initialFilters}
         setInitialFilters={setInitialFilters}
         initialPageSet={initialPageSet}
         setInitialPageSet={setInitialPageSet}
-        user={user}
+
+      user={user}
       />
 
       <Filters
