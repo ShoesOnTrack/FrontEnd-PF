@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getByID, removeFavoriteBack, AddFavoriteBack, removeCartBack, AddCartBack } from "@/redux/actions";
 import { Modal, Button } from 'antd';
 import { useRouter } from 'next/navigation';
+import { BsCart4 } from "react-icons/bs";
+import Link from "next/link";
 
 
 const Detail = () => {
@@ -88,7 +90,11 @@ const Detail = () => {
     }
   };
   return (
-    <div>
+   
+    <div> 
+      <Link href={`/carrito`}>
+         <BsCart4 />
+        </Link>
       {Product && Product.id === id && (
         <div className={styles.container}>
           <div className={styles.line1}></div>
