@@ -58,11 +58,11 @@ const NavBar = ({
         </Link>
       )}
 
-      {pathname !== "/favorites" && (<Link href={"/favorites"} className={style.link} passHref>
+      {/* {pathname !== "/favorites" && (<Link href={"/favorites"} className={style.link} passHref>
         {user?.name && <button className={style.button}>
           <span>Favorites</span>
         </button>}
-      </Link>)}
+      </Link>)} */}
 
       <Link href={"/admin"} className={style.link} passHref>
         {user?.isAdmin && <button className={style.button}>
