@@ -18,7 +18,10 @@ import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
 
 const HomePage = () => {
   const Page = useSelector((state) => state.indexProductShow);
-  const [initialPageSet, setInitialPageSet] = useState(1);
+  const [initialPageSet, setInitialPageSet] = useLocalStorage(
+    "initialPageSet",
+    1
+  );
   const [initialFilters, setInitialFilters] = useLocalStorage(
     "initialFilters",
     {}

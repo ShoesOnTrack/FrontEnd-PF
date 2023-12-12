@@ -9,6 +9,7 @@ import { Modal, Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { BsCart4 } from "react-icons/bs";
 import Link from "next/link";
+import NavBar from "@/components/navbar/Navbar";
 
 
 const Detail = () => {
@@ -92,6 +93,7 @@ const Detail = () => {
   return (
    
     <div> 
+      <NavBar user={user}/>
       <Link href={`/carrito`}>
          <BsCart4 />
         </Link>

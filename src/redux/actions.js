@@ -38,7 +38,6 @@ import { data } from "autoprefixer";
 const URL = 'http://localhost:3001';
 
 export function getAllFavs(id) {
-  console.log('me despacharon');
   
   return async function (dispatch) {
     const response = await axios.get(`${URL}/favs/${id}`);
@@ -70,7 +69,6 @@ export function removeFavoriteBack(objectId) {
 }
 
 export function getAllCarts(id) {
-  console.log("aaa")
   return async function (dispatch) {
     const response = await axios.get(`${URL}/cart/${id}`);
     dispatch({
