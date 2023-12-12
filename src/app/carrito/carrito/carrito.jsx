@@ -15,13 +15,15 @@ const Carrito = () => {
     const dispatch = useDispatch();
     const [refresh, setRefresh] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [client, setClient] = useState(false);
     const carts = useSelector((state) => state.carrito);
     const user = useSelector((state) => state.user);
 
     const loadCarts = ()=>{
-        if(user?.id && (refresh || !carts.length)){
+        if(user?.id && (refresh || !client)){
             dispatch(getAllCarts(user.id));
             setRefresh(false);
+            setClient(true);
         }
     }
     useEffect(() => {

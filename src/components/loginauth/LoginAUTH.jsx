@@ -8,6 +8,9 @@ import Logout from "@/app/api/auth/logoutButton";
 import styles from "./login.module.css";
 import { userRegister } from "@/redux/actions";
 import Image from "next/image";
+import { Menu, Dropdown } from "antd";
+import Link from "next/link";
+import authProfile from "@/app/api/auth/authProfile"
 
 const LoginAuth = () => {
   const { user, isLoading } = useUser();
@@ -42,32 +45,54 @@ const LoginAuth = () => {
     }
   }, [user, isLoading]);
 
-  return (
+  const menu = (
+    <Menu className={styles.customMenu}>
+      <Menu.Item key="favorites" className={styles.menuItem}>
+        <Link href="/favorites">
+          <p>❤️ FAVORITOS</p>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="profile" className={styles.menuItem}>
+        <Link href="/carrito">
+          <p>🛒 CART</p>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" className={styles.menuItem}>
+        <Link href="/api/auth/logout">
+          <p>LOGOUT</p>
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+  
+return (
     <div>
       <div className={styles.profileContainer}>
         {isLoading ? (
           <div>Cargando...</div>
         ) : user ? (
           <div className={styles.userCont}>
-            <div>
-              {/* {user.name && (
-                  <span className={styles.profileName}>{user.name}</span>
-                )} */}
+            {/* <div>
               {user ? (
                 <Logout className={styles.logoutButton} />
               ) : (
                 <Login className={styles.loginButton} />
               )}
+            </div> */}
+            <div>
+          
             </div>
-            {user.picture && (
-              <Image
-                src={user.picture}
-                width={60}
-                height={60}
-                alt={user.name}
-                className={styles.profileImage}
-              />
-            )}
+            <div className={styles.rightContent}>
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <Image
+                  src={user.picture}
+                  width={60}
+                  height={60}
+                  alt={user.name}
+                  className={styles.profileImage}
+                />
+              </Dropdown>
+            </div>
           </div>
         ) : (
           <div>

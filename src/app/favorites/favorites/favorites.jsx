@@ -9,13 +9,15 @@ import Link from "next/link";
 const Favorites = () => {
     const dispatch = useDispatch();
     const [refresh, setRefresh] = useState(false);
+    const [client, setClient] = useState(false);
     const favs = useSelector((state) => state.favorites);
     const user = useSelector((state) => state.user);
 
     const loadFavs = ()=>{
-        if(user?.id && (refresh || !favs.length)){
+        if(user?.id && (refresh || !client)){
             dispatch(getAllFavs(user.id));
             setRefresh(false);
+            setClient(true);
         }
     }
     useEffect(() => {

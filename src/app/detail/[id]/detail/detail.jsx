@@ -9,6 +9,7 @@ import { Modal, Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { BsCart4 } from "react-icons/bs";
 import Link from "next/link";
+import NavBar from "@/components/navbar/Navbar";
 
 
 const Detail = () => {
@@ -92,9 +93,7 @@ const Detail = () => {
   return (
    
     <div> 
-      <Link href={`/carrito`}>
-         <BsCart4 />
-        </Link>
+      <NavBar user={user}/>
       {Product && Product.id === id && (
         <div className={styles.container}>
           <div className={styles.line1}></div>
@@ -114,6 +113,7 @@ const Detail = () => {
               <div className={styles.line}></div>
               <div className={styles.price}>${Product.price}</div>
               <div className={styles.color}>
+
                 <h5>Colores Disponibles:</h5>
                 {Product?.color}
               </div>
@@ -121,7 +121,9 @@ const Detail = () => {
                 <h5>Material:</h5>
                 {Product?.details}
               </div>
+ 
               <div className={styles.line}></div>
+              <div className={styles.name}>Stock: {Product.stock}</div>
             </div>
             <div className={styles.containerButton}>
               {user?.email && 
