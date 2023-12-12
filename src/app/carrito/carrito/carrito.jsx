@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 
@@ -47,12 +47,21 @@ const Carrito = () => {
           setModalVisible(true);
           return;
         }
+      
         const response = await fetch("http://localhost:3001/payment/create-order", {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            totalPrice: totalPrice,
+            userEmail: user.email, // Pasa el correo electrónico al backend
+          }),
         });
+
         const data = await response.json();
         console.log(data);
-    
+      
         window.location.href = data.links[1].href;
       };
 
