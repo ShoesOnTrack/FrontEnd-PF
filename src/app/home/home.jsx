@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Cards from "@/components/cardsContainer/cards.jsx";
-import Header from "@/components/header/header";
 import Filters from "@/components/filters/Filters";
 import FilterCategory from "@/components/filters/filterCategory";
 import Footer from "@/components/footer/Footer";
