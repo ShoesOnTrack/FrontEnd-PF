@@ -10,7 +10,7 @@ import { userRegister } from "@/redux/actions";
 import Image from "next/image";
 import { Menu, Dropdown } from "antd";
 import Link from "next/link";
-import authProfile from "@/app/api/auth/authProfile"
+import authProfile from "@/app/api/auth/authProfile";
 
 const LoginAuth = () => {
   const { user, isLoading } = useUser();
@@ -57,31 +57,29 @@ const LoginAuth = () => {
           <p>🛒 CART</p>
         </Link>
       </Menu.Item>
-      <Menu.Item key="logout" className={styles.menuItem}>
-        <Link href="/api/auth/logout">
-          <p>LOGOUT</p>
-        </Link>
-      </Menu.Item>
+      {user && (
+       <Menu.Item key="logout" className={styles.menuItem}>
+       <Logout asLink={false} textoBoton="Cerrar Sesión" />
+     </Menu.Item>
+      )}
     </Menu>
   );
-  
-return (
+
+  return (
     <div>
       <div className={styles.profileContainer}>
         {isLoading ? (
           <div>Cargando...</div>
         ) : user ? (
           <div className={styles.userCont}>
-            {/* <div>
-              {user ? (
+            <div>
+              {/* {user ? (
                 <Logout className={styles.logoutButton} />
               ) : (
                 <Login className={styles.loginButton} />
-              )}
-            </div> */}
-            <div>
-          
+              )} */}
             </div>
+            <div></div>
             <div className={styles.rightContent}>
               <Dropdown overlay={menu} trigger={["click"]}>
                 <Image
