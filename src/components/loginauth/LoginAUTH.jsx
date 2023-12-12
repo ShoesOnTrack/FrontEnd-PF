@@ -46,24 +46,23 @@ const LoginAuth = () => {
   }, [user, isLoading]);
 
   const menu = (
-    <Menu>
-      <Menu.Item key="favorites">
-        <Link href={"/favorites"}>
+    <Menu className={styles.customMenu}>
+      <Menu.Item key="favorites" className={styles.menuItem}>
+        <Link href="/favorites">
           <p>❤️ FAVORITOS</p>
         </Link>
       </Menu.Item>
-      <Menu.Item key="profile">
+      <Menu.Item key="profile" className={styles.menuItem}>
         <Link href="/carrito">
-          <p>CARRITO</p>
+          <p>🛒 CART</p>
         </Link>
       </Menu.Item>
-      <Menu.Item key="logout">
+      <Menu.Item key="logout" className={styles.menuItem}>
         <Link href="/api/auth/logout">
           <p>LOGOUT</p>
         </Link>
       </Menu.Item>
     </Menu>
-  
   );
   
 return (
