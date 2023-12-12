@@ -94,9 +94,6 @@ const Detail = () => {
    
     <div> 
       <NavBar user={user}/>
-      <Link href={`/carrito`}>
-         <BsCart4 />
-        </Link>
       {Product && Product.id === id && (
         <div className={styles.container}>
           <div className={styles.line1}></div>
@@ -116,6 +113,7 @@ const Detail = () => {
               <div className={styles.line}></div>
               <div className={styles.price}>${Product.price}</div>
               <div className={styles.color}>
+
                 <h5>Colores Disponibles:</h5>
                 {Product?.color}
               </div>
@@ -123,7 +121,9 @@ const Detail = () => {
                 <h5>Material:</h5>
                 {Product?.details}
               </div>
+ 
               <div className={styles.line}></div>
+              <div className={styles.name}>Stock: {Product.stock}</div>
             </div>
             <div className={styles.containerButton}>
               {user?.email && 
