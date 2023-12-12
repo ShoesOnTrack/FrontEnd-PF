@@ -78,7 +78,7 @@ const Carrito = () => {
         {carts?.length > 0 ? (
         <>
           <h1>Carrito de Compras</h1>
-          <div>
+          <div className={styles.container}>
             {carts.map((car) => (
               <div key={car.id}>
                 <button onClick={() => handleCarrito(car.id)}>
