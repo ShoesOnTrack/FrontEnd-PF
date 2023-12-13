@@ -7,13 +7,18 @@ import Login from "@/app/api/auth/loginButton";
 import Logout from "@/app/api/auth/logoutButton";
 import styles from "./login.module.css";
 import { userRegister } from "@/redux/actions";
+import Image from "next/image";
+import { Menu, Dropdown } from "antd";
+import Link from "next/link";
+import authProfile from "@/app/api/auth/authProfile";
 
 const LoginAuth = () => {
   const { user, isLoading } = useUser();
   const [registrationRequested, setRegistrationRequested] = useState(false);
-  const [showEmailVerificationAlert, setShowEmailVerificationAlert] = useState(false);
+  const [showEmailVerificationAlert, setShowEmailVerificationAlert] =
+    useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +32,6 @@ const LoginAuth = () => {
             email_verified: user.email_verified,
           };
           dispatch(userRegister(userData));
-          
         }
       }
     };
@@ -41,17 +45,51 @@ const LoginAuth = () => {
     }
   }, [user, isLoading]);
 
+  const menu = (
+    <Menu className={styles.customMenu}>
+      <Menu.Item key="favorites" className={styles.menuItem}>
+        <Link href="/favorites">
+          <p>❤️ FAVORITES</p>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="profile" className={styles.menuItem}>
+        <Link href="/carrito">
+          <p>🛒 CART</p>
+        </Link>
+      </Menu.Item>
+      {user && (
+       <Menu.Item key="logout" className={styles.menuItem}>
+       <Logout asLink={false} textoBoton="LOGOUT" />
+     </Menu.Item>
+      )}
+    </Menu>
+  );
+
   return (
     <div>
       <div className={styles.profileContainer}>
         {isLoading ? (
           <div>Cargando...</div>
         ) : user ? (
-          <div className="flex items-center">
-            {user.picture && <img src={user.picture} alt={user.name} className={styles.profileImage} />}
+          <div className={styles.userCont}>
             <div>
-              {user.name && <span className={styles.profileName}>{user.name}</span>}
-              {user ? <Logout className={styles.logoutButton} /> : <Login className={styles.loginButton} />}
+              {/* {user ? (
+                <Logout className={styles.logoutButton} />
+              ) : (
+                <Login className={styles.loginButton} />
+              )} */}
+            </div>
+            <div></div>
+            <div className={styles.rightContent}>
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <Image
+                  src={user.picture}
+                  width={60}
+                  height={60}
+                  alt={user.name}
+                  className={styles.profileImage}
+                />
+              </Dropdown>
             </div>
           </div>
         ) : (
@@ -63,7 +101,8 @@ const LoginAuth = () => {
 
       {showEmailVerificationAlert && (
         <div className={styles.alertContainer}>
-          Tu correo electrónico no ha sido verificado. Por favor, verifica tu correo electrónico para continuar.
+          Tu correo electrónico no ha sido verificado. Por favor, verifica tu
+          correo electrónico para continuar.
           <a href="/api/auth/logout" className={styles.alertButton}>
             Aceptar
           </a>

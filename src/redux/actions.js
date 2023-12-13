@@ -20,11 +20,118 @@ import {
   GET_USER_PRODUCTS,
   CREATE_SHOES,
   USER_LOGEADO,
-  CLEAR_USER
+  CLEAR_USER,
+  CHANGE_SHOE,
+  DELETE_SHOE,
+  GET_ALL_CARTS,
+  GET_ALL_FAVS,
+  GET_TESTIMONIALS,
+  NEW_CART,
+  NEW_FAVORITE,
+  REMOVE_CART_BACK,
+  REMOVE_FAV_BACK,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_REQUEST,
+  SEND_EMAIL_FAILURE,
+  GET_ALL_REVIEWS,
+  POST_REVIEW,
+  DELETE_REVIEW,
 } from "./action-type";
+import { data } from "autoprefixer";
 
 const URL = 'http://localhost:3001';
 
+export function getAllReviews() {
+  
+  return async function (dispatch) {
+    const response = await axios.get(`${URL}/reviews`);
+    dispatch({
+      type: GET_ALL_REVIEWS,
+      payload: response.data,
+    });
+  };
+}
+
+export function postReview(objectReview) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/reviews`, objectReview);
+    dispatch({
+      type: POST_REVIEW,
+      payload: response.data,
+    });
+  };
+}
+
+export function deleteReview(userId) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/reviews/delete`, userId);
+    dispatch({
+      type: DELETE_REVIEW,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllFavs(id) {
+  
+  return async function (dispatch) {
+    const response = await axios.get(`${URL}/favs/${id}`);
+    dispatch({
+      type: GET_ALL_FAVS,
+      payload: response.data,
+    });
+  };
+}
+
+export function AddFavoriteBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/favs`, objectId);
+    dispatch({
+      type: NEW_FAVORITE,
+      payload: response.data,
+    });
+  };
+}
+
+export function removeFavoriteBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.put(`${URL}/favs`, objectId);
+    dispatch({
+      type: REMOVE_FAV_BACK,
+      payload: response.data,
+    });
+  };
+}
+
+export function getAllCarts(id) {
+  return async function (dispatch) {
+    const response = await axios.get(`${URL}/cart/${id}`);
+    dispatch({
+      type: GET_ALL_CARTS,
+      payload: response.data,
+    });
+  };
+}
+
+export function AddCartBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/cart`, objectId);
+    dispatch({
+      type: NEW_CART,
+      payload: response.data,
+    });
+  };
+}
+
+export function removeCartBack(objectId) {
+  return async function (dispatch) {
+    const response = await axios.put(`${URL}/cart`, objectId);
+    dispatch({
+      type: REMOVE_CART_BACK,
+      payload: response.data,
+    });
+  };
+}
 
 export const showLoader = () => {
   return {
@@ -61,6 +168,20 @@ export const getFiltersAndPagination = (filtros, pageNumber) => {
       });
     } catch (error) {
       console.error('Error en la solicitud de paginación con filtros:', error);
+    }
+  };
+};
+
+export const getTestimonials = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/reviews');
+      dispatch({
+        type: GET_TESTIMONIALS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 };
@@ -254,10 +375,10 @@ export const deleteFavorite = (datos) => async () => {
 };
 
 
-export const getUserProducts = (idUser) => {
+export const getUserProducts = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/products/all?idUser=${idUser}`);
+      const { data } = await axios.get(`/products/all`);
       dispatch({ type: GET_USER_PRODUCTS, payload: data });
   } catch (error) {
      console.error(error);
@@ -273,6 +394,50 @@ export const createShoe = (shoe) => {
       return dispatch({ type: CREATE_SHOES, payload: data });
     } catch (error) {
       console.error(error);
+    }
+  };
+};
+
+export const updateShoe = (shoe) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/products/change`, shoe);
+      return dispatch({ type: CHANGE_SHOE, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+
+export const deleteShoe = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/products/${id}`);
+      dispatch({ type: DELETE_SHOE, payload: data });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: DELETE_SHOE, payload: error.message }); // Ejemplo: acción de error
+    }
+  };
+};
+
+export const sendEmail = (formData) => {
+  return async (dispatch) => {
+    dispatch({ type: SEND_EMAIL_REQUEST });
+
+    try {
+      console.log("FormData in sendEmail action:", formData);
+      const response = await axios.post(`/contact/send`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      dispatch({ type: SEND_EMAIL_SUCCESS, payload: response.data });
+    } catch (error) {
+      console.error('Error en el envío del formulario de contacto:', error);
+      dispatch({ type: SEND_EMAIL_FAILURE, payload: error.message });
     }
   };
 };

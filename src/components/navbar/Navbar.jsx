@@ -1,20 +1,76 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import style from "./style.module.css";
 
-const NavBar = () => {
+import SearchBar from "@/components/searchBar/searchBar";
+import logo from "@/helpers/assets/Logo.png";
+import Image from "next/image";
+import LoginAuth from "../loginauth/LoginAUTH";
+import { useEffect } from "react";
+
+const NavBar = ({
+  initialFilters,
+  setInitialFilters,
+  initialPageSet,
+  setInitialPageSet,
+  user,
+}) => {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    console.log(user)
+  }, [])
+
   return (
     <nav className={style.nav}>
-      <div className={style.buttons}>
-        <Link href={"/" }>
-        <button className={style.btn}> <span></span><p  data-text="Home" data-title="Home"></p></button>
+      <div className={style.imagen}>
+        <Link href={"/"} passHref>
+          <Image src={logo} width={160} height={120} alt="Search" />
+        </Link>
+      </div>
+      <SearchBar
+        initialFilters={initialFilters}
+        setInitialFilters={setInitialFilters}
+        initialPageSet={initialPageSet}
+        setInitialPageSet={setInitialPageSet}
+      />
+
+      {pathname !== "/" && (
+        <Link href={"/"} className={style.link} passHref>
+          <button className={style.button}>
+            <span>Home</span>
+          </button>
+        </Link>
+      )}
+      {pathname !== "/contact" && (
+        <Link href={"/contact"} className={style.link} passHref>
+          <button className={style.button}>
+            <span>Contact</span>
+          </button>
+        </Link>
+      )}
+      {pathname !== "/about" && (
+        <Link href={"/about"} className={style.link} passHref>
+          <button className={style.button}>
+            <span>About</span>
+          </button>
+        </Link>
+      )}
+
+      {/* {pathname !== "/favorites" && (<Link href={"/favorites"} className={style.link} passHref>
+        {user?.name && <button className={style.button}>
+          <span>Favorites</span>
+        </button>}
+      </Link>)} */}
+
+      <Link href={"/admin"} className={style.link} passHref>
+        {user?.isAdmin && <button className={style.button}>
+          <span>Admin</span>
+        </button>}
       </Link>
-      <Link href={"/contact" } className={style.btn} >
-        <button className={style.btn}><span></span><p  data-text="Contact" data-title="Contact"></p></button>
-      </Link>
-      <Link href={"/about" } className={style.btn} >
-        <button className={style.btn}><span></span><p  data-text="About" data-title="About"></p></button>
-      </Link>
-        </div>
+
+      <LoginAuth />
     </nav>
   );
 };

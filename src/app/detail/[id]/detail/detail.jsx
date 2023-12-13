@@ -4,10 +4,30 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import styles from "./detail.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getByID, clearDetail } from "@/redux/actions";
+import {
+  getByID,
+  removeFavoriteBack,
+  AddFavoriteBack,
+  removeCartBack,
+  AddCartBack,
+} from "@/redux/actions";
+import { Modal, Button } from "antd";
+import { useRouter } from "next/navigation";
+import { BsCart4 } from "react-icons/bs";
+import Link from "next/link";
+import NavBar from "@/components/navbar/Navbar";
 
 const Detail = () => {
+  const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   const handleClick = async () => {
+    if (!user?.email) {
+      setModalVisible(true);
+      setModalMessage("Para realizar esta acción, inicia sesión.");
+      return;
+    }
     const response = await fetch("http://localhost:3001/payment/create-order", {
       method: "POST",
     });
@@ -17,9 +37,34 @@ const Detail = () => {
     window.location.href = data.links[1].href;
   };
   const dispatch = useDispatch();
-
+  const [isFav, setIsFav] = useState(false);
+  const [isCart, setIsCart] = useState(false);
   const Product = useSelector((state) => state.productDetail);
+  const user = useSelector((state) => state.user);
+  const favs = useSelector((state) => state.favorites);
+  const carrito = useSelector((state) => state.carrito);
+
   const { id } = useParams();
+
+  useEffect(() => {
+    if (favs?.length) {
+      favs?.forEach((fav) => {
+        if (fav.id === id) {
+          setIsFav(true);
+        }
+      });
+    }
+  }, [id, favs]);
+
+  useEffect(() => {
+    if (carrito?.length) {
+      carrito?.forEach((cart) => {
+        if (cart.id === id) {
+          setIsCart(true);
+        }
+      });
+    }
+  }, [id, carrito]);
 
   const loadIdProduct = () => {
     if (id === Product.id) return;
@@ -30,11 +75,38 @@ const Detail = () => {
     loadIdProduct();
   }, []);
 
-  useEffect(() => {
-    console.log(Product);
-  }, []);
+  const handleFavorite = () => {
+    if (!user?.email) {
+      setModalVisible(true);
+      setModalMessage("To add to favorites, log in or register.");
+      return;
+    }
+    if (isFav) {
+      setIsFav(false);
+      dispatch(removeFavoriteBack({ UserId: user.id, ProductId: id }));
+    } else {
+      setIsFav(true);
+      dispatch(AddFavoriteBack({ UserId: user.id, ProductId: id }));
+    }
+  };
+
+  const handleCarrito = () => {
+    if (!user?.email) {
+      setModalVisible(true);
+      setModalMessage("To add to cart, log in or register.");
+      return;
+    }
+    if (isCart) {
+      setIsCart(false);
+      dispatch(removeCartBack({ UserId: user.id, ProductId: id }));
+    } else {
+      setIsCart(true);
+      dispatch(AddCartBack({ UserId: user.id, ProductId: id }));
+    }
+  };
   return (
     <div>
+      <NavBar user={user} />
       {Product && Product.id === id && (
         <div className={styles.container}>
           <div className={styles.line1}></div>
@@ -62,19 +134,47 @@ const Detail = () => {
                 {Product?.details}
               </div>
               <div className={styles.line}></div>
+              <div className={styles.name}>Stock: {Product.stock}</div>
             </div>
             <div className={styles.containerButton}>
-              <button className={styles.Button}>Agregar al Carrito</button>
-              <button className={styles.Button}>Añadir a Favoritos</button>
-              <button className={styles.Button} onClick={handleClick}>
-                Comprar
-              </button>
+              <div>
+                <button className={styles.Button} onClick={handleCarrito}>
+                  {isCart ? "Remove from Cart ❌" : "Add to Cart 🛒"}
+                </button>
+              </div>
+              <div>
+                <button className={styles.Button} onClick={handleFavorite}>
+                  {isFav ? "Remove from Favorites ❤️" : "Add to Favorites 🤍"}
+                </button>
+              </div>
             </div>
           </div>
+          {!user?.email && (
+            <div>
+              <Modal
+                title="¡Hello!"
+                visible={modalVisible}
+                onCancel={() => setModalVisible(false)}
+                footer={[
+                  <Button
+                    key="login"
+                    type="primary"
+                    onClick={() => router.push("/api/auth/login")}
+                  >
+                    Log in
+                  </Button>,
+                ]}
+                style={{ fontSize: "16px", width: "90%" }}
+              >
+                <p style={{ fontSize: "23px" }}>{modalMessage}</p>
+              </Modal>
+            </div>
+          )}
           <div className={styles.line}></div>
         </div>
       )}
     </div>
+
     // <div>
     //   <div className={styles.centrardiv}>
     //     {Product && Product.id === id && (
