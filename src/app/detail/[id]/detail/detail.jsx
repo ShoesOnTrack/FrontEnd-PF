@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getByID, removeFavoriteBack, AddFavoriteBack, removeCartBack, AddCartBack } from "@/redux/actions";
 import { Modal, Button } from 'antd';
 import { useRouter } from 'next/navigation';
+import { BsCart4 } from "react-icons/bs";
+import Link from "next/link";
+import NavBar from "@/components/navbar/Navbar";
 
 
 const Detail = () => {
@@ -88,7 +91,9 @@ const Detail = () => {
     }
   };
   return (
-    <div>
+   
+    <div> 
+      <NavBar user={user}/>
       {Product && Product.id === id && (
         <div className={styles.container}>
           <div className={styles.line1}></div>
@@ -108,6 +113,7 @@ const Detail = () => {
               <div className={styles.line}></div>
               <div className={styles.price}>${Product.price}</div>
               <div className={styles.color}>
+
                 <h5>Colores Disponibles:</h5>
                 {Product?.color}
               </div>
@@ -115,18 +121,17 @@ const Detail = () => {
                 <h5>Material:</h5>
                 {Product?.details}
               </div>
+ 
               <div className={styles.line}></div>
+              <div className={styles.name}>Stock: {Product.stock}</div>
             </div>
             <div className={styles.containerButton}>
               {user?.email && 
-              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Quitar del Carrito ' : 'Agregar al Carrito '}</button> </div>}
+              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Remove from Cart ❌' : 'Add to Cart 🛒'}</button> </div>}
               {/* <button className={styles.Button}>Agregar al Carrito</button> */}
               {user?.email && 
-              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Quitar de Favoritos ❤️' : 'Añadir a Favoritos 🤍'}</button> </div>}
+              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Remove from Favorites ❤️' : 'Add to Favorites 🤍'}</button> </div>}
               {/* <button className={styles.Button}>Añadir a Favoritos</button> */}
-              <button className={styles.Button} onClick={handleClick}>
-                Comprar
-              </button>
             </div>
           </div>
           {!user?.email && (
