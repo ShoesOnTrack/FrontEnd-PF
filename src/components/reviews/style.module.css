@@ -1,4 +1,4 @@
-.card {
+/* .card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,4 +115,125 @@
     margin-top: 5px;
     padding: 10px;
     resize: none;
+} */
+
+
+
+.reviews {
+    height: 50vh;
+  } 
+  
+  /* Estilos para el título */
+  .rtitle {
+    font-size: 24px;
+    color:black;
+    margin-bottom: 20px;
+    background: #ebac21;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* Estilos para cada slide de review */
+  .rslide {
+    width: 90vw;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(248, 247, 247, 0.1);
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-left: 76px;
+    
+  }
+  
+
+  
+  .limite {
+    font-weight: bold;
+    margin-right: 10px; /* Espacio entre el texto y las estrellas */
+    word-wrap: break-word; /* Permite el corte de palabras */
+  }
+
+  /* Estilos para el título (h4) dentro de .rwrapper */
+  /* .rwrapper h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+} */
+  
+  
+  
+  /* Estilos para el botón 'x' cuando el usuario es el dueño de la review */
+  .dbutton {
+    margin-top: 10px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+  }
+    
+    
+    /* Estilos para el contenedor de 'Danos tu opinión' */
+    .ocontainer {
+        width: 93vw;
+        background:#3d3d3d;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+    
+    /* Estilos para el título 'Danos tu opinión' */
+    .otitle {
+        font-size: 20px;
+        color: white;
+        margin-bottom: 15px;
+    }
+    
+    /* Estilos para el contenedor de la calificación */
+    .orating {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    /* Estilos para el área de texto */
+    .otextarea {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+    
+    /* Estilos para el botón de enviar */
+    .obutton {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+  
+    /* Estilos para el botón de enviar cuando está deshabilitado */
+    .obutton:disabled {
+        background-color: #aaa;
+        cursor: not-allowed;
+    }
+
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.estrellas{
+    margin-left: 1100px;
+}
+
+.creacion{
+    margin-bottom: 20px;
 }
