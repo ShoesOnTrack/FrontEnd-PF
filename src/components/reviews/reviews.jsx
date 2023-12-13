@@ -109,7 +109,7 @@ const Reviews = () => {
                 {/* {" "} */}
 
                 <h3>{review.User?.name}</h3>
-                <p className={style.limite}>"{review.contenido}"</p>
+                <p className={style.limite}>{review.contenido}</p>
                 <Rating allowFraction initialValue={review.puntuacion} className={style.estrellas} />
                 {review.User.id === user.id ? (
                   <button onClick={handleDelete} className={style.dbutton}>
