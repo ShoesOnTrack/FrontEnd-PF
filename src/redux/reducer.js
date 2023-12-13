@@ -26,6 +26,9 @@ import {
   SEND_EMAIL_FAILURE,
   SEND_EMAIL_REQUEST,
   SEND_EMAIL_SUCCESS,
+  GET_ALL_REVIEWS,
+  POST_REVIEW,
+  DELETE_REVIEW
 } from "./action-type";
 
 const initialState = {
@@ -57,6 +60,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         indexProductShow: action.payload,
       };
+
+    case GET_ALL_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload 
+      }
 
     case GET_ALL_FAVS:
       return {

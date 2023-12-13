@@ -14,6 +14,7 @@ import styles from "./Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getFiltersAndPagination, getAllFavs, getAllCarts } from "@/redux/actions";
 import { useLocalStorage } from "@/helpers/localStorage/useLocalStorage";
+import axios from "axios";
 
 const HomePage = () => {
   const Page = useSelector((state) => state.indexProductShow);

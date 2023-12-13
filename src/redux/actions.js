@@ -33,10 +33,44 @@ import {
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_REQUEST,
   SEND_EMAIL_FAILURE,
+  GET_ALL_REVIEWS,
+  POST_REVIEW,
+  DELETE_REVIEW,
 } from "./action-type";
 import { data } from "autoprefixer";
 
 const URL = 'http://localhost:3001';
+
+export function getAllReviews() {
+  
+  return async function (dispatch) {
+    const response = await axios.get(`${URL}/reviews`);
+    dispatch({
+      type: GET_ALL_REVIEWS,
+      payload: response.data,
+    });
+  };
+}
+
+export function postReview(objectReview) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/reviews`, objectReview);
+    dispatch({
+      type: POST_REVIEW,
+      payload: response.data,
+    });
+  };
+}
+
+export function deleteReview(userId) {
+  return async function (dispatch) {
+    const response = await axios.post(`${URL}/reviews/delete`, userId);
+    dispatch({
+      type: DELETE_REVIEW,
+      payload: response.data,
+    });
+  };
+}
 
 export function getAllFavs(id) {
   

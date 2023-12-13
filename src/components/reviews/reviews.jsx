@@ -1,28 +1,52 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTestimonials } from "../../redux/actions.js";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import { Pagination } from "swiper/modules";
 import { Rating } from "react-simple-star-rating";
-import style from "./style.module.css";
+import { getAllReviews, postReview, } from "@/redux/actions";
+import NavBar from "../navbar/Navbar";
+import axios from "axios";
 
 const Reviews = () => {
+  const dispatch = useDispatch();
   const [rating, setRating] = useState(1);
   const [message, setMessage] = useState("");
   const [review, setReview] = useState({});
+  const user = useSelector((state) => state.user);
+  const reviews = useSelector((state) => state.reviews);
+  const [tengoReview, setTengoReview] = useState(false)
 
   const handleRating = (rate) => {
     setRating(rate);
   };
 
+  const loadReviews = async () => {
+      await dispatch(getAllReviews());
+  };
+
+  
+  // const check = ()=>{
+  //   console.log(reviews)
+  //   reviews?.map((rev)=>{
+  //       console.log(rev.User?.name)
+  //       if(rev.User?.id === user.id){
+  //         setTengoReview(true)
+  //       }
+  //     })
+  //   }
+    
+    useEffect(()=>{
+      loadReviews();
+    },[])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const { data } = await axios.post("/reviews", {
-        userId: localStorage.getItem("id"),
+        userId: user.id,
         contenido: message,
         puntuacion: rating,
       });
@@ -31,48 +55,62 @@ const Reviews = () => {
           title: data.message,
           icon: "success",
         });
+        loadReviews()
+        setTengoReview(true)
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    const fetchReview = async () => {
-      try {
-        const { data } = await axios.get(
-          `/reviews/${localStorage.getItem("id")}`
-        );
-        setReview(data.data);
-      } catch (error) {
-        console.error(error);
+  useEffect(()=>{
+
+    console.log(reviews)
+    reviews.data?.map((rev)=>{
+             if(rev.User?.id === user.id){
+               setTengoReview(true)
+             }
+           })
+  },[reviews])
+
+  const handleDelete = async()=>{
+    console.log("borrar review");
+    try {
+      const { data } = await axios.post("/reviews/delete", {
+        userId: user.id,
+      });
+      if (!data.error) {
+        Swal.fire({
+          title: data.message,
+          icon: "success",
+        });
+        loadReviews()
+        setTengoReview(false)
       }
-    };
-    fetchReview();
-  }, []);
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
 
-  const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.reviews);
-
-  useEffect(() => {
-    dispatch(getTestimonials());
-  }, [dispatch]);
 
   return (
     <>
-      <div className="container">
-        <h2 className="text-center">Reviews</h2>
+    <NavBar user={user}/>
+      <div >
+        <h2 >Reviews</h2>
         <Swiper
           slidesPerView={3}
           spaceBetween={30}
           modules={[Pagination]}
-          className="mySwiper"
+          
         >
           {reviews.data?.map((review) => (
-            <SwiperSlide className={style.card}>
+            <SwiperSlide key={review.id}>
               <h4>
-                {review.usuario?.persona?.nombre}{" "}
-                {review.usuario?.persona?.apellido}
+                {review.User?.name}{" "}
+                <br />
+                {review.User?.email}
               </h4>
               <div
                 style={{
@@ -81,22 +119,18 @@ const Reviews = () => {
                   touchAction: "none",
                 }}
               >
-                <Rating
-                  initialValue={reviews.puntuacion}
-                  onClick={function noRefCheck() {}}
-                  readonly
-                  allowFraction
-                />
+                <Rating allowFraction initialValue={review.puntuacion}/>
               </div>
               {review.contenido}
+              {review.User.id === user.id ? (<button onClick={handleDelete}>x</button>): null}
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div className={style.reviews_container}>
-        {review ? (
-          <div className={style.review_edit_container}>
-            <div className={style.review}>
+      <div >
+        {tengoReview ? (
+          <div >
+            <div >
               <div
                 style={{
                   direction: "ltr",
@@ -106,18 +140,18 @@ const Reviews = () => {
                   display: "inline",
                 }}
               >
-                <Rating
+                {/* <Rating
                   allowFraction
                   initialValue={review.puntuacion}
                   onClick={handleRating}
                   readonly={true}
-                />
+                /> */}
               </div>
-              <textarea value={review.contenido} disabled={true} />
+              {/* <textarea value={review.contenido} disabled={true} /> */}
             </div>
           </div>
         ) : (
-          <div className={style.review_container}>
+          <div >
             <h3>Danos tu opinion</h3>
             <div
               style={{
@@ -129,7 +163,7 @@ const Reviews = () => {
             >
               <Rating allowFraction initialValue={0.5} onClick={handleRating} />
             </div>
-            <form className={style.form_container} onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <textarea
                 name=""
                 id=""
