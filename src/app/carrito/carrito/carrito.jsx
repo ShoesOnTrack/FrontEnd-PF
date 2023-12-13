@@ -73,43 +73,35 @@ const Carrito = () => {
       },[carts, calcularTotal, refresh])
 
 
-    return(
-        <div>
-        <NavBar user={user}/>
+      return(
+        <div >
+          <NavBar user={user}/>
       
         {carts?.length > 0 ? (
         <>
           <h1>Carrito de Compras</h1>
-          <div className={styles.container}>
+          <div >
             {carts.map((car) => (
               <div key={car.id}>
-                <button onClick={() => handleCarrito(car.id)}>
-                  X
-                </button>
-                <Link href={`/detail/${car.id}`}>
-                  <div>
-                  <Image
-                className={styles.imagen}
-                src={car?.image}
-                width={300}
-                height={300}
-                alt={car?.name || id}
-              />
-                  <div>{car.name}</div>
-                  <div><h4 >{car.price}</h4></div>
-                  </div>
-                </Link>
+
+                <div className={styles.container}>
+                 <div><Link href={`/detail/${car.id}`}><img className={styles.imagen} src={car.image} alt={car.name}></img></Link></div>
+                 <div>{car.brandName}</div>
+                 <div>{car.name}</div>
+                 <div>${car.price}</div>
+                 <div><button onClick={() => handleCarrito(car.id)}>X</button></div>
+                </div>
+
               </div>
             ))}
             <br />
-                <h2>TOTAL: {totalPrice}</h2>
-                <button
-                //  className={styles.Button}
-                onClick={handleClick}
-                  >
-                Comprar
-              </button>
-          </div>
+            <div className={styles.pay}>
+              <h2>TOTAL: ${totalPrice}</h2>
+              <br/>
+              <button onClick={handleClick}>Comprar</button>
+            </div>
+         </div>
+
         </>
       ) : (
         <div>

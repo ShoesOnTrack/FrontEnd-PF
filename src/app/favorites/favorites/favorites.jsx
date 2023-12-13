@@ -5,6 +5,7 @@ import { getAllFavs, removeFavoriteBack  } from "@/redux/actions";
 import NavBar from "@/components/navbar/Navbar";
 import Cards from "@/components/cardsContainer/cards";
 import Link from "next/link";
+import styles from "../favorites/favorites.module.css"
 
 const Favorites = () => {
     const dispatch = useDispatch();
@@ -38,22 +39,26 @@ const Favorites = () => {
         <NavBar user={user}/>
         {favs?.length > 0 ? (
         <>
-          <h2>Favoritos de {user?.name}</h2>
+          <h2 className={styles.title}>Favoritos de {user?.name}</h2>
           <div>
             {favs.map((fav) => (
               <div key={fav.id}>
-                <button onClick={() => handleFavorite(fav.id)}>
-                  {'❤️'}
-                </button>
-                <Link href={`/detail/${fav.id}`}>
-                  <div>
-                  <img src={fav.image} alt={fav.name}></img>
-                  <div >
-                     <span>{fav.brandName}</span>
-                     <h4 >{fav.name}</h4>
-                     </div>
+                
+                  <div className={styles.container}>
+                    
+                    <div><Link href={`/detail/${fav.id}`}><img className={styles.imagen} src={fav.image} alt={fav.name}></img></Link></div>
+                    <div><span>{fav.brandName}</span> </div>
+                    <div><h4 >{fav.name}</h4></div>
+                    <div><button onClick={() => handleFavorite(fav.id)}>{'❤️'}</button></div>
                   </div>
-                </Link>
+                 
+                  
+                     
+                    
+                     
+                     
+                  
+                
               </div>
             ))}
           </div>

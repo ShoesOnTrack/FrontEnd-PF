@@ -1,0 +1,19 @@
+.container{
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Utiliza repeat para especificar 5 columnas iguales */
+    grid-gap: 30px;
+    align-items: center;
+}
+.imagen{
+    width: 100px;
+    height: 100px;
+}
+
+.title{
+    text-align: center;
+    margin: 1%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

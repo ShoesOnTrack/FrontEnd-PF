@@ -1,4 +1,19 @@
-.container {
+.container{
     background-color: #ffffff;
-    display: inline;
+    width: 100%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; /* Utiliza repeat para especificar 5 columnas iguales */
+    grid-gap: 30px;
+    align-items: center;
+    padding: 1%;
+}
+.imagen{
+    width: 100px;
+    height: 100px;
+}
+
+.pay{
+    padding: 1%;
+    text-align: center;
 }
