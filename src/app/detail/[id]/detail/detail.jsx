@@ -127,14 +127,11 @@ const Detail = () => {
             </div>
             <div className={styles.containerButton}>
               {user?.email && 
-              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Quitar del Carrito ' : 'Agregar al Carrito '}</button> </div>}
+              <div> <button className={styles.Button} onClick={handleCarrito}>{isCart ? 'Remove from Cart ❌' : 'Add to Cart 🛒'}</button> </div>}
               {/* <button className={styles.Button}>Agregar al Carrito</button> */}
               {user?.email && 
-              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Quitar de Favoritos ❤️' : 'Añadir a Favoritos 🤍'}</button> </div>}
+              <div> <button className={styles.Button} onClick={handleFavorite}>{isFav ? 'Remove from Favorites ❤️' : 'Add to Favorites 🤍'}</button> </div>}
               {/* <button className={styles.Button}>Añadir a Favoritos</button> */}
-              <button className={styles.Button} onClick={handleClick}>
-                Comprar
-              </button>
             </div>
           </div>
           {!user?.email && (

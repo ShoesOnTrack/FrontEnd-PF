@@ -49,7 +49,7 @@ const LoginAuth = () => {
     <Menu className={styles.customMenu}>
       <Menu.Item key="favorites" className={styles.menuItem}>
         <Link href="/favorites">
-          <p>❤️ FAVORITOS</p>
+          <p>❤️ FAVORITES</p>
         </Link>
       </Menu.Item>
       <Menu.Item key="profile" className={styles.menuItem}>
@@ -59,7 +59,7 @@ const LoginAuth = () => {
       </Menu.Item>
       {user && (
        <Menu.Item key="logout" className={styles.menuItem}>
-       <Logout asLink={false} textoBoton="Cerrar Sesión" />
+       <Logout asLink={false} textoBoton="LOGOUT" />
      </Menu.Item>
       )}
     </Menu>
