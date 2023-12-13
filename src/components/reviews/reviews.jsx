@@ -6,9 +6,10 @@ import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import { Pagination } from "swiper/modules";
 import { Rating } from "react-simple-star-rating";
-import { getAllReviews, postReview, } from "@/redux/actions";
+import { getAllReviews, postReview } from "@/redux/actions";
 import NavBar from "../navbar/Navbar";
 import axios from "axios";
+import style from "./style.module.css";
 
 const Reviews = () => {
   const dispatch = useDispatch();
@@ -17,17 +18,16 @@ const Reviews = () => {
   const [review, setReview] = useState({});
   const user = useSelector((state) => state.user);
   const reviews = useSelector((state) => state.reviews);
-  const [tengoReview, setTengoReview] = useState(false)
+  const [tengoReview, setTengoReview] = useState(false);
 
   const handleRating = (rate) => {
     setRating(rate);
   };
 
   const loadReviews = async () => {
-      await dispatch(getAllReviews());
+    await dispatch(getAllReviews());
   };
 
-  
   // const check = ()=>{
   //   console.log(reviews)
   //   reviews?.map((rev)=>{
@@ -37,10 +37,10 @@ const Reviews = () => {
   //       }
   //     })
   //   }
-    
-    useEffect(()=>{
-      loadReviews();
-    },[])
+
+  useEffect(() => {
+    loadReviews();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,25 +55,25 @@ const Reviews = () => {
           title: data.message,
           icon: "success",
         });
-        loadReviews()
-        setTengoReview(true)
+        loadReviews();
+        setTengoReview(true);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
+    console.log(reviews);
+    reviews.data?.map((rev) => {
+      if (rev.User?.id === user.id) {
+        setTengoReview(true);
+      }
+    });
+    console.log(reviews);
+  }, [reviews]);
 
-    console.log(reviews)
-    reviews.data?.map((rev)=>{
-             if(rev.User?.id === user.id){
-               setTengoReview(true)
-             }
-           })
-  },[reviews])
-
-  const handleDelete = async()=>{
+  const handleDelete = async () => {
     console.log("borrar review");
     try {
       const { data } = await axios.post("/reviews/delete", {
@@ -84,97 +84,92 @@ const Reviews = () => {
           title: data.message,
           icon: "success",
         });
-        loadReviews()
-        setTengoReview(false)
+        loadReviews();
+        setTengoReview(false);
       }
     } catch (error) {
       console.error(error);
-      
     }
-  }
-
+  };
 
   return (
     <>
-    <NavBar user={user}/>
-      <div >
-        <h2 >Reviews</h2>
-        <Swiper
-          slidesPerView={3}
-          spaceBetween={30}
-          modules={[Pagination]}
-          
-        >
-          {reviews.data?.map((review) => (
-            <SwiperSlide key={review.id}>
-              <h4>
-                {review.User?.name}{" "}
-                <br />
-                {review.User?.email}
-              </h4>
-              <div
-                style={{
-                  direction: "ltr",
-                  fontFamily: "sans-serif",
-                  touchAction: "none",
-                }}
-              >
-                <Rating allowFraction initialValue={review.puntuacion}/>
+      <NavBar user={user} />
+      <div className={style.all}>
+        <div className={style.reviews}>
+          <h2 className={style.rtitle}>Reviews</h2>
+          {/* <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            modules={[Pagination]}
+          > */}
+          <div className={style.cont}>
+            {reviews.data?.map((review) => (
+              <div key={review.id} className={style.rslide}>
+                {/* {" "} */}
+
+                <h3>{review.User?.name}</h3>
+                <p className={style.limite}>"{review.contenido}"</p>
+                <Rating allowFraction initialValue={review.puntuacion} className={style.estrellas} />
+                {review.User.id === user.id ? (
+                  <button onClick={handleDelete} className={style.dbutton}>
+                    x
+                  </button>
+                ) : null}
               </div>
-              {review.contenido}
-              {review.User.id === user.id ? (<button onClick={handleDelete}>x</button>): null}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div >
-        {tengoReview ? (
-          <div >
-            <div >
-              <div
-                style={{
-                  direction: "ltr",
-                  fontFamily: "sans-serif",
-                  touchAction: "none",
-                  width: "auto",
-                  display: "inline",
-                }}
-              >
-                {/* <Rating
+            ))}
+          </div>
+          {/* </Swiper> */}
+        </div>
+        <div className={style.creacion}>
+          {tengoReview ? (
+            <div>
+              <div>
+                <div
+                  style={{
+                    direction: "ltr",
+                    fontFamily: "sans-serif",
+                    touchAction: "none",
+                    width: "auto",
+                    display: "inline",
+                  }}
+                >
+                  {/* <Rating
                   allowFraction
                   initialValue={review.puntuacion}
                   onClick={handleRating}
                   readonly={true}
                 /> */}
+                </div>
+                {/* <textarea value={review.contenido} disabled={true} /> */}
               </div>
-              {/* <textarea value={review.contenido} disabled={true} /> */}
             </div>
-          </div>
-        ) : (
-          <div >
-            <h3>Danos tu opinion</h3>
-            <div
-              style={{
-                direction: "ltr",
-                fontFamily: "sans-serif",
-                touchAction: "none",
-                textAlign: "center",
-              }}
-            >
-              <Rating allowFraction initialValue={0.5} onClick={handleRating} />
+          ) : (
+            <div className={style.ocontainer}>
+              <h3 className={style.otitle}>Danos tu opinion</h3>
+              <div className={style.orating}>
+                <Rating
+                  allowFraction
+                  initialValue={0.5}
+                  onClick={handleRating}
+                />
+              </div>
+              <form onSubmit={handleSubmit}>
+                <textarea
+                  className={style.otextarea}
+                  name=""
+                  id=""
+                  cols="45"
+                  rows="8"
+                  onChange={(event) => setMessage(event.target.value)}
+                ></textarea>
+                <button type="submit" className={style.obutton}>
+                  Enviar
+                </button>
+              </form>
             </div>
-            <form onSubmit={handleSubmit}>
-              <textarea
-                name=""
-                id=""
-                cols="45"
-                rows="8"
-                onChange={(event) => setMessage(event.target.value)}
-              ></textarea>
-              <button type="submit">Crear</button>
-            </form>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   );
