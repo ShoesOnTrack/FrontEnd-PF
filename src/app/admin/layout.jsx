@@ -1,21 +1,17 @@
-import AdminSidebar from "@/components/adminLayout/adminSidebar"
+import AdminSidebar from "@/components/adminLayout/adminSidebar";
 import Navbar from "@/components/navbar/Navbar";
 
-
-
 const AdminLayout = ({ children }) => {
-  const admin = {isAdmin:true}
-    return (
+  const admin = { isAdmin: true };
+  return (
+    <div>
+      <Navbar user={admin} />
+      <AdminSidebar />
       <div>
-        {/* <Navbar user={admin}/> */}
-        <AdminSidebar/>
-        <div >
-          <main >
-            {children}
-          </main>
-        </div>
+        <main>{children}</main>
       </div>
-    );
-  };
-  
-  export default AdminLayout;
+    </div>
+  );
+};
+
+export default AdminLayout;
