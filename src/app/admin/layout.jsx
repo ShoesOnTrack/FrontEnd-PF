@@ -5,7 +5,6 @@ const AdminLayout = ({ children }) => {
   const admin = { isAdmin: true };
   return (
     <div>
-      <Navbar user={admin} />
       <AdminSidebar />
       <div>
         <main>{children}</main>

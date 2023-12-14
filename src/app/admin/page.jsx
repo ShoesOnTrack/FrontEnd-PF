@@ -25,8 +25,8 @@ const ShoesPage = () => {
   }, [user]);
 
   useEffect(() => {
-    loadShoes();
-  }, [shoes]);
+    dispatch(getUserProducts());
+  }, []);
 
   return (
     <div>
