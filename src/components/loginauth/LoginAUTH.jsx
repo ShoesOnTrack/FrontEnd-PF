@@ -57,11 +57,11 @@ const LoginAuth = () => {
           <p className="option">🛒 CART</p>
         </Link>
       </Menu.Item>
-      <Menu.Item key="logout" className={styles.menuItem}>
-        <Link href="/api/auth/logout">
-          <p className="option">LOGOUT</p>
-        </Link>
-      </Menu.Item>
+      {user && (
+       <Menu.Item key="logout" className={styles.menuItem}>
+       <Logout asLink={false} textoBoton="LOGOUT" />
+     </Menu.Item>
+      )}
     </Menu>
   );
 
@@ -72,13 +72,14 @@ const LoginAuth = () => {
           <div>Cargando...</div>
         ) : user ? (
           <div className={styles.userCont}>
-            {/* <div>
-              {user ? (
+            <div>
+              {/* {user ? (
                 <Logout className={styles.logoutButton} />
               ) : (
                 <Login className={styles.loginButton} />
-              )}
-            </div> */}
+
+              )} */}
+            </div>
             <div></div>
             <div className={styles.rightContent}>
               <Dropdown overlay={menu} trigger={["click"]}>
