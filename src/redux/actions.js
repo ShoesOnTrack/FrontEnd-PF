@@ -33,12 +33,10 @@ import {
   SEND_EMAIL_REQUEST,
   SEND_EMAIL_FAILURE,
 } from "./action-type";
-import { data } from "autoprefixer";
 
-const URL = 'http://localhost:3001';
+const URL = "http://localhost:3001";
 
 export function getAllFavs(id) {
-  
   return async function (dispatch) {
     const response = await axios.get(`${URL}/favs/${id}`);
     dispatch({
@@ -49,6 +47,7 @@ export function getAllFavs(id) {
 }
 
 export function AddFavoriteBack(objectId) {
+  console.log(objectId);
   return async function (dispatch) {
     const response = await axios.post(`${URL}/favs`, objectId);
     dispatch({
@@ -124,7 +123,7 @@ export const getFiltersAndPagination = (filtros, pageNumber) => {
       // Construye la cadena de consulta de la URL para filtros y paginación
       const queryString = new URLSearchParams(filtrosValidos).toString();
       const url = `${URL}/products?${queryString}&page=${pageNumber}`;
-      console.log(url)
+      console.log(url);
       const response = await axios.get(url);
 
       dispatch({
@@ -132,7 +131,7 @@ export const getFiltersAndPagination = (filtros, pageNumber) => {
         payload: response.data,
       });
     } catch (error) {
-      console.error('Error en la solicitud de paginación con filtros:', error);
+      console.error("Error en la solicitud de paginación con filtros:", error);
     }
   };
 };
@@ -154,7 +153,7 @@ export function getByID(id) {
 export function getProductsname(name) {
   return async function (dispatch) {
     const productsname = (await axios.get(`${URL}/products?name=${name}`)).data;
-    console.log(productsname)
+    console.log(productsname);
     dispatch({
       type: GET_PRODUCTS_BY_NAME,
       payload: productsname,
@@ -162,8 +161,8 @@ export function getProductsname(name) {
   };
 }
 
-export function clearDetail(){
-  console.log("llegue aca")
+export function clearDetail() {
+  console.log("llegue aca");
   return {
     type: CLEAR_DETAIL,
   };
@@ -172,7 +171,7 @@ export function clearDetail(){
 export function reset() {
   return async function (dispatch) {
     dispatch({
-      type: RESET
+      type: RESET,
     });
   };
 }
@@ -213,7 +212,6 @@ export const buscarProductos = ({
   };
 };
 
-
 export const sortProducts = (orderBy) => {
   return {
     type: SORT_PRICE,
@@ -236,7 +234,7 @@ export const userRegister = (formData) => async (dispatch) => {
 export function clearUser() {
   return async function (dispatch) {
     dispatch({
-      type: CLEAR_USER
+      type: CLEAR_USER,
     });
   };
 }
@@ -325,18 +323,16 @@ export const deleteFavorite = (datos) => async () => {
   }
 };
 
-
 export const getUserProducts = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/products/all`);
       dispatch({ type: GET_USER_PRODUCTS, payload: data });
-  } catch (error) {
-     console.error(error);
-  }
-}
-}
-
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 
 export const createShoe = (shoe) => {
   return async (dispatch) => {
@@ -360,7 +356,6 @@ export const updateShoe = (shoe) => {
   };
 };
 
-
 export const deleteShoe = (id) => {
   return async (dispatch) => {
     try {
@@ -381,16 +376,14 @@ export const sendEmail = (formData) => {
       console.log("FormData in sendEmail action:", formData);
       const response = await axios.post(`/contact/send`, formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       dispatch({ type: SEND_EMAIL_SUCCESS, payload: response.data });
     } catch (error) {
-      console.error('Error en el envío del formulario de contacto:', error);
+      console.error("Error en el envío del formulario de contacto:", error);
       dispatch({ type: SEND_EMAIL_FAILURE, payload: error.message });
     }
   };
 };
-      
-

@@ -4,13 +4,14 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useDispatch } from "react-redux";
 import Login from "@/app/api/auth/loginButton";
+import logo from "@/helpers/assets/47-473690_sign-out-icon-transparent-hd-png-download.png";
 import Logout from "@/app/api/auth/logoutButton";
 import styles from "./login.module.css";
 import { userRegister } from "@/redux/actions";
 import Image from "next/image";
 import { Menu, Dropdown } from "antd";
 import Link from "next/link";
-import authProfile from "@/app/api/auth/authProfile"
+import authProfile from "@/app/api/auth/authProfile";
 
 const LoginAuth = () => {
   const { user, isLoading } = useUser();
@@ -49,23 +50,23 @@ const LoginAuth = () => {
     <Menu className={styles.customMenu}>
       <Menu.Item key="favorites" className={styles.menuItem}>
         <Link href="/favorites">
-          <p>❤️ FAVORITOS</p>
+          <p className="option">❤️ FAVORITES</p>
         </Link>
       </Menu.Item>
       <Menu.Item key="profile" className={styles.menuItem}>
         <Link href="/carrito">
-          <p>🛒 CART</p>
+          <p className="option">🛒 CART</p>
         </Link>
       </Menu.Item>
       <Menu.Item key="logout" className={styles.menuItem}>
         <Link href="/api/auth/logout">
-          <p>LOGOUT</p>
+          <p className="option">LOGOUT</p>
         </Link>
       </Menu.Item>
     </Menu>
   );
-  
-return (
+
+  return (
     <div>
       <div className={styles.profileContainer}>
         {isLoading ? (
@@ -79,9 +80,7 @@ return (
                 <Login className={styles.loginButton} />
               )}
             </div> */}
-            <div>
-          
-            </div>
+            <div></div>
             <div className={styles.rightContent}>
               <Dropdown overlay={menu} trigger={["click"]}>
                 <Image
