@@ -75,6 +75,15 @@
   background-color: #ebac21;
   border-radius: 15px;
 }
+.filler {
+  width: fit-content;
+  border-radius: 15px;
+  background-color: #ebac21;
+  padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  margin: auto;
+}
 
 .button {
   width: 50px;
@@ -133,4 +142,32 @@
   opacity: 1;
   transform: translateY(30px);
   transition-duration: 0.3s;
+}
+
+.btnCont {
+  width: fit-content;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.homeBtn {
+  cursor: pointer;
+  margin: auto;
+  padding: 1%;
+  font-size: larger;
+  font-weight: bold;
+  border: none;
+  background-color: black;
+  margin-bottom: 1em;
+  color: #ebac21;
+  border-radius: 15px;
+  transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+}
+
+.homeBtn:hover {
+  transform: translate(5px, -5px);
+}
+
+.homeBtn:active {
+  transform: translate(-5px, 5px);
 }

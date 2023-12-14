@@ -36,7 +36,6 @@ const Favorites = () => {
   }
 
   useEffect(() => {
-    console.log("soy el useEffect", restored);
     loadFavs();
   }, [favs, refresh, restored]);
 
@@ -62,7 +61,6 @@ const Favorites = () => {
 
   const handleFavorite = async (id) => {
     const deleted = favs.filter((fav) => fav.id === id);
-    console.log("soy deleted", deleted);
     Swal.fire({
       title: "Do you want to delete this product from favorites?",
       showDenyButton: true,
@@ -135,8 +133,22 @@ const Favorites = () => {
         </>
       ) : (
         <div>
-          <p>Nada por acá...</p>
-          <p>Aún no tenés productos en Favoritos</p>
+          <h1 className={styles.title}>Favorites</h1>
+
+          <div className={styles.btnCont}>
+            <Link href={"/"} passHref>
+              <button className={styles.homeBtn}>{"Let's go Shopping"}</button>
+            </Link>
+          </div>
+          {restored[0] ? (
+            <div className={styles.titleCont}>
+              <button onClick={restoreFavorite} className={styles.rstrBtn}>
+                Restore
+              </button>
+            </div>
+          ) : (
+            <h2 className={styles.filler}>{"You don't have favorites"}</h2>
+          )}
         </div>
       )}
     </div>
