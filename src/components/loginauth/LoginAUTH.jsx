@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useDispatch } from "react-redux";
 import Login from "@/app/api/auth/loginButton";
-import logo from "@/helpers/assets/47-473690_sign-out-icon-transparent-hd-png-download.png";
 import Logout from "@/app/api/auth/logoutButton";
 import styles from "./login.module.css";
 import { userRegister } from "@/redux/actions";
